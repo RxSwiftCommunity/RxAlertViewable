@@ -7,21 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4845A757A7D513221E86225D /* Pods_RxAlertViewable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42707893D70F1A995F723D5B /* Pods_RxAlertViewable.framework */; };
 		77B1656021B2573700958CEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1655F21B2573700958CEC /* AppDelegate.swift */; };
 		77B1656221B2573700958CEC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1656121B2573700958CEC /* ViewController.swift */; };
-		77B1656521B2573700958CEC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77B1656321B2573700958CEC /* Main.storyboard */; };
 		77B1656721B2573A00958CEC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77B1656621B2573A00958CEC /* Assets.xcassets */; };
 		77B1656A21B2573A00958CEC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77B1656821B2573A00958CEC /* LaunchScreen.storyboard */; };
+		77B1657221BF88B600958CEC /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1657121BF88B600958CEC /* ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37FC665BB3EA291747D42BD3 /* Pods-RxAlertViewable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxAlertViewable.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxAlertViewable/Pods-RxAlertViewable.debug.xcconfig"; sourceTree = "<group>"; };
+		42707893D70F1A995F723D5B /* Pods_RxAlertViewable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxAlertViewable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77B1655C21B2573700958CEC /* RxAlertViewable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxAlertViewable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77B1655F21B2573700958CEC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77B1656121B2573700958CEC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		77B1656421B2573700958CEC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		77B1656621B2573A00958CEC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77B1656921B2573A00958CEC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		77B1656B21B2573A00958CEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77B1657121BF88B600958CEC /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		EB7697DB7F12527EAD3E2BD6 /* Pods-RxAlertViewable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxAlertViewable.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxAlertViewable/Pods-RxAlertViewable.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4845A757A7D513221E86225D /* Pods_RxAlertViewable.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E5286110FFF1C7C59702E63 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				42707893D70F1A995F723D5B /* Pods_RxAlertViewable.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		77B1655321B2573700958CEC = {
 			isa = PBXGroup;
 			children = (
 				77B1655E21B2573700958CEC /* RxAlertViewable */,
 				77B1655D21B2573700958CEC /* Products */,
+				AB8C9406C354F322FA89414B /* Pods */,
+				0E5286110FFF1C7C59702E63 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,12 +71,21 @@
 			children = (
 				77B1655F21B2573700958CEC /* AppDelegate.swift */,
 				77B1656121B2573700958CEC /* ViewController.swift */,
-				77B1656321B2573700958CEC /* Main.storyboard */,
+				77B1657121BF88B600958CEC /* ViewModel.swift */,
 				77B1656621B2573A00958CEC /* Assets.xcassets */,
 				77B1656821B2573A00958CEC /* LaunchScreen.storyboard */,
 				77B1656B21B2573A00958CEC /* Info.plist */,
 			);
 			path = RxAlertViewable;
+			sourceTree = "<group>";
+		};
+		AB8C9406C354F322FA89414B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				37FC665BB3EA291747D42BD3 /* Pods-RxAlertViewable.debug.xcconfig */,
+				EB7697DB7F12527EAD3E2BD6 /* Pods-RxAlertViewable.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +95,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 77B1656E21B2573A00958CEC /* Build configuration list for PBXNativeTarget "RxAlertViewable" */;
 			buildPhases = (
+				5E19D2AFADFF3DC0EDF26F36 /* [CP] Check Pods Manifest.lock */,
 				77B1655821B2573700958CEC /* Sources */,
 				77B1655921B2573700958CEC /* Frameworks */,
 				77B1655A21B2573700958CEC /* Resources */,
+				021D5BB29EE4084BCADB86DB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -124,11 +150,63 @@
 			files = (
 				77B1656A21B2573A00958CEC /* LaunchScreen.storyboard in Resources */,
 				77B1656721B2573A00958CEC /* Assets.xcassets in Resources */,
-				77B1656521B2573700958CEC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		021D5BB29EE4084BCADB86DB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-RxAlertViewable/Pods-RxAlertViewable-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RxAlertViewable/Pods-RxAlertViewable-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5E19D2AFADFF3DC0EDF26F36 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RxAlertViewable-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		77B1655821B2573700958CEC /* Sources */ = {
@@ -136,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77B1656221B2573700958CEC /* ViewController.swift in Sources */,
+				77B1657221BF88B600958CEC /* ViewModel.swift in Sources */,
 				77B1656021B2573700958CEC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,14 +222,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		77B1656321B2573700958CEC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				77B1656421B2573700958CEC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		77B1656821B2573A00958CEC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -213,7 +284,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -268,7 +339,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -280,10 +351,12 @@
 		};
 		77B1656F21B2573A00958CEC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37FC665BB3EA291747D42BD3 /* Pods-RxAlertViewable.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = RxAlertViewable/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -297,10 +370,12 @@
 		};
 		77B1657021B2573A00958CEC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB7697DB7F12527EAD3E2BD6 /* Pods-RxAlertViewable.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = RxAlertViewable/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
