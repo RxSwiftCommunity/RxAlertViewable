@@ -6,6 +6,24 @@
 //  Copyright © 2018 MuShare. All rights reserved.
 //
 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
 import UIKit
 
 public struct RxAlertViewConfig {
@@ -32,12 +50,12 @@ public struct RxAlertViewConfig {
     }
 }
 
-public enum RxAlertViewType {
+public enum RxAlertType {
     case tip(message: String)
+    case customTip(title: String, message: String)
     case warning(message: String)
     case error(message: String)
-    case confirm(title: String, message: String, onConfirm: (() -> ())? )
-    
+    case confirm(title: String, message: String, onConfirm: (() -> ())?)
 }
 
 public class RxAlertViewCreator {
@@ -48,10 +66,12 @@ public class RxAlertViewCreator {
     
     private init() {}
     
-    public func create(type: RxAlertViewType, completion: (() -> ())? = nil) -> UIAlertController {
+    public func create(type: RxAlertType, completion: (() -> ())? = nil) -> UIAlertController {
         switch type {
         case .tip(let message):
             return createAlert(title: config.tip, message: message)
+        case .customTip(let title, let message):
+            return createAlert(title: title, message: message)
         case .warning(let message):
             return createAlert(title: config.tip, message: message)
         case .error(let message):

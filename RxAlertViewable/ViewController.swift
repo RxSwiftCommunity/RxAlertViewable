@@ -7,10 +7,23 @@
 //
 
 import UIKit
+import RxSwift
+import SnapKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, RxAlertViewable {
+    
+    private lazy var button: UIButton = {
+        let button = UIButton()
+        button.setTitle("Open Alert View", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        button.rx.tap.bind { [unowned self] in
+            self.viewModel.alert()
+            }.disposed(by: disposeBag)
+        return button
+    }()
     
     private let viewModel: ViewModel
+    private let disposeBag = DisposeBag()
     
     init(viewModel: ViewModel) {
         self.viewModel = viewModel
@@ -25,6 +38,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        view.addSubview(button)
+        
+        button.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.size.equalTo(200)
+        }
+        
+        viewModel.tip.bind(to: rx.alert).disposed(by: disposeBag)
     }
 
 
