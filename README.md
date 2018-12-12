@@ -1,7 +1,7 @@
 # RxAlertViewable [![Build Status](https://travis-ci.org/lm2343635/RxAlertViewable.svg?branch=master)](https://travis-ci.org/lm2343635/RxAlertViewable) [![Version](https://img.shields.io/cocoapods/v/RxAlertViewable.svg?style=flat)](https://cocoapods.org/pods/RxAlertViewable) [![License](https://img.shields.io/cocoapods/l/RxAlertViewable.svg?style=flat)](https://cocoapods.org/pods/RxAlertViewable) [![Platform](https://img.shields.io/cocoapods/p/RxAlertViewable.svg?style=flat)](https://cocoapods.org/pods/RxAlertViewable)
 
 RxAlertViewable is created for developing the MVVM app with RxSwift. 
-It supports to show a simple alert from the view model class using the signal ```Observable<RxAlertType>```.
+It supports to show a simple alert from the view model class using the signal `Observable<RxAlert>`.
 
 ## Installation
 
@@ -14,31 +14,32 @@ pod 'ShapeView'
 
 ## Documentaion
 
-To use RxAlertViewable, confirm the ```RxAlertViewable``` protocol in your view controller class.
+To use RxAlertViewable, confirm the `RxAlertViewable` protocol in your view controller class.
 
 ```Swift
 class ViewController: UIViewController, RxAlertViewable {}
 ```
 
-Prepare a singal ```Observable<RxAlertType>``` in your view model class.
+Prepare a singal `Observable<RxAlert>` in your view model class.
 
 ```Swift
 let clickTimes = BehaviorRelay<Int>(value: 0)
 
-var tip: Observable<RxAlertType> {
+var tip: Observable<RxAlert> {
     return clickTimes.map {
-        RxAlertType.tip(message: "Clicked \($0) times.")
+        RxAlert.tip(message: "Clicked \($0) times.")
     }
 }
 ```
 
 RxAlertViewable supports the following alert types.
 
-- ```tip(message: String)```
+- ```tip(String)```
 - ```customTip(title: String, message: String)```
-- ```warning(message: String)```
-- ```error(message: String)```
-- ```confirm(title: String, message: String, onConfirm: (() -> ())?)```
+- ```warning(String)```
+- ```error(String)```
+- ```confirm(message: String, onConfirm: (() -> ())?)```
+- ```customConfirm(title: String, message: String, onConfirm: (() -> ())?)```
     
 Bind it in the view controller class.
 
@@ -53,7 +54,7 @@ viewModel.tip.bind(to: rx.alert).disposed(by: disposeBag)
 Customize you own strings and tint color using the following code.
 
 ```Swfit
-RxAlertViewCreator.instance.config = RxAlertViewConfig(tip: "My Tip",
+RxAlertCreator.instance.config = RxAlertViewConfig(tip: "My Tip",
                                                        confirm: "My Confirm",
                                                        warning: "My Warning",
                                                        error: "My Error",

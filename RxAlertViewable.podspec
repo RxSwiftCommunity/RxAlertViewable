@@ -7,11 +7,11 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RxAlertViewable'
-  s.version          = '0.1.1'
+  s.version          = '0.2'
   s.summary          = 'A simple alert library with RxSwift supported.'
 
   s.description      = <<-DESC
-RxAlertViewable is created for developing the MVVM app with RxSwift. It supports to show a simple alert from the view model class using the signal Observable<RxAlertType>.
+RxAlertViewable is created for developing the MVVM app with RxSwift. It supports to show a simple alert from the view model class using the signal Observable<RxAlert>.
                        DESC
 
   s.homepage         = 'https://github.com/lm2343635/RxAlertViewable'
