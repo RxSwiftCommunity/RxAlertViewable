@@ -32,9 +32,9 @@ import UIKit
 
 public extension Reactive where Base: UIViewController, Base: RxAlertViewable {
     
-    public var alert: Binder<RxAlertType> {
+    public var alert: Binder<RxAlert> {
         return Binder(self.base) { viewController, alert in
-            viewController.showAlert(type: alert)
+            viewController.showAlert(alert)
         }
     }
     

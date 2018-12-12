@@ -30,8 +30,8 @@ public protocol RxAlertViewable {}
 
 public extension RxAlertViewable where Self: UIViewController {
     
-    public func showAlert(type: RxAlertType) {
-        let alertController = RxAlertViewCreator.instance.create(type: type)
+    public func showAlert(_ alert: RxAlert) {
+        let alertController = RxAlertCreator.instance.create(alert: alert)
         present(alertController, animated: true)
     }
     

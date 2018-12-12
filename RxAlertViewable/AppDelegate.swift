@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        RxAlertViewCreator.instance.config = RxAlertViewConfig(tip: "My Tip",
+        RxAlertCreator.instance.config = RxAlertConfig(tip: "My Tip",
                                                                confirm: "My Confirm",
                                                                warning: "My Warning",
                                                                error: "My Error",

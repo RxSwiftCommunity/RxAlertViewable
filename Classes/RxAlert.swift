@@ -1,5 +1,5 @@
 //
-//  RxAlertView.swift
+//  RxAlert.swift
 //  RxAlertViewable
 //
 //  Created by Meng Li on 2018/12/09.
@@ -26,7 +26,7 @@
 
 import UIKit
 
-public struct RxAlertViewConfig {
+public struct RxAlertConfig {
     
     var tip: String
     var confirm: String
@@ -50,24 +50,25 @@ public struct RxAlertViewConfig {
     }
 }
 
-public enum RxAlertType {
-    case tip(message: String)
+public enum RxAlert {
+    case tip(_ message: String)
     case customTip(title: String, message: String)
-    case warning(message: String)
-    case error(message: String)
-    case confirm(title: String, message: String, onConfirm: (() -> ())?)
+    case warning(_ message: String)
+    case error(_ message: String)
+    case confirm(_ message: String, onConfirm: (() -> ())?)
+    case customConfirm(title: String, message: String, onConfirm: (() -> ())?)
 }
 
-public class RxAlertViewCreator {
+public class RxAlertCreator {
     
-    public static let instance = RxAlertViewCreator()
+    public static let instance = RxAlertCreator()
     
-    public var config = RxAlertViewConfig()
+    public var config = RxAlertConfig()
     
     private init() {}
     
-    public func create(type: RxAlertType, completion: (() -> ())? = nil) -> UIAlertController {
-        switch type {
+    public func create(alert: RxAlert, completion: (() -> ())? = nil) -> UIAlertController {
+        switch alert {
         case .tip(let message):
             return createAlert(title: config.tip, message: message)
         case .customTip(let title, let message):
@@ -76,17 +77,23 @@ public class RxAlertViewCreator {
             return createAlert(title: config.warning, message: message)
         case .error(let message):
             return createAlert(title: config.error, message: message)
-        case .confirm(let title, let message, let onConfirm):
-            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: config.yes, style: .default) { action in
-                onConfirm?()
-            })
-            alertController.addAction(UIAlertAction(title: config.no, style: .cancel))
-            if let tintColor = config.tintColor {
-                alertController.view.tintColor = tintColor
-            }
-            return alertController
+        case .confirm(let message, let onConfirm):
+            return createConfirm(title: config.confirm, message: message, onConfirm: onConfirm)
+        case .customConfirm(let title, let message, let onConfirm):
+            return createConfirm(title: title, message: message, onConfirm: onConfirm)
         }
+    }
+
+    private func createConfirm(title: String, message: String, onConfirm: (() -> ())? = nil) -> UIAlertController {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: config.yes, style: .default) { action in
+            onConfirm?()
+        })
+        alertController.addAction(UIAlertAction(title: config.no, style: .cancel))
+        if let tintColor = config.tintColor {
+            alertController.view.tintColor = tintColor
+        }
+        return alertController
     }
 
     private func createAlert(title: String, message: String) -> UIAlertController {
