@@ -21,5 +21,7 @@ RxAlertViewable is created for developing the MVVM app with RxSwift. It supports
   
   s.ios.deployment_target = '9.0'
   s.source_files = 'Classes/**/*'
-  
+  s.dependency 'RxSwift', '~> 4.4'
+  s.dependency 'RxCocoa', '~> 4.4'
+
 end
