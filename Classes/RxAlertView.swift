@@ -73,15 +73,18 @@ public class RxAlertViewCreator {
         case .customTip(let title, let message):
             return createAlert(title: title, message: message)
         case .warning(let message):
-            return createAlert(title: config.tip, message: message)
+            return createAlert(title: config.warning, message: message)
         case .error(let message):
-            return createAlert(title: config.tip, message: message)
+            return createAlert(title: config.error, message: message)
         case .confirm(let title, let message, let onConfirm):
             let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: config.yes, style: .default) { action in
                 onConfirm?()
             })
             alertController.addAction(UIAlertAction(title: config.no, style: .cancel))
+            if let tintColor = config.tintColor {
+                alertController.view.tintColor = tintColor
+            }
             return alertController
         }
     }
@@ -91,6 +94,9 @@ public class RxAlertViewCreator {
                                                 message: message,
                                                 preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: config.ok, style: .cancel))
+        if let tintColor = config.tintColor {
+            alertController.view.tintColor = tintColor
+        }
         return alertController
     }
 
