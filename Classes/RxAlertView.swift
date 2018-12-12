@@ -37,7 +37,7 @@ public struct RxAlertViewConfig {
     var ok: String
     var tintColor: UIColor?
     
-    init(tip: String? = nil, confirm: String? = nil, warning: String? = nil, error: String? = nil,
+    public init(tip: String? = nil, confirm: String? = nil, warning: String? = nil, error: String? = nil,
         yes: String? = nil, no: String? = nil, ok: String? = nil, tintColor: UIColor? = nil) {
         self.tip = tip ?? "Tip"
         self.confirm = confirm ?? "Confirm"
@@ -88,7 +88,7 @@ public class RxAlertViewCreator {
             return alertController
         }
     }
-    
+
     private func createAlert(title: String, message: String) -> UIAlertController {
         let alertController = UIAlertController(title: title,
                                                 message: message,
