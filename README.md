@@ -46,6 +46,8 @@ Bind it in the view controller class.
 viewModel.tip.bind(to: rx.alert).disposed(by: disposeBag)
 ```
 
+![Demo](https://raw.githubusercontent.com/lm2343635/RxAlertViewable/master/screenshoots/demo.png)
+
 #### Customization
 
 Customize you own strings and tint color using the following code.
