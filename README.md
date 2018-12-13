@@ -5,8 +5,8 @@ It supports to show a simple alert from the view model class using the signal `O
 
 ## Installation
 
-RxAlertViewable is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+RxAlertViewable is available through [CocoaPods](https://cocoapods.org). 
+To install it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'ShapeView'
@@ -14,7 +14,7 @@ pod 'ShapeView'
 
 ## Documentaion
 
-To use RxAlertViewable, confirm the `RxAlertViewable` protocol in your view controller class.
+To use RxAlertViewable, confirm the `RxAlertViewable` protocol in your view controller class at first.
 
 ```Swift
 class ViewController: UIViewController, RxAlertViewable {}
@@ -47,12 +47,14 @@ Bind it in the view controller class.
 viewModel.tip.bind(to: rx.alert).disposed(by: disposeBag)
 ```
 
+When we invoke the `clickTimes.accept(times)` method in the view model class, an alert controller will be shown in the view controller.
+
 ![Demo](https://raw.githubusercontent.com/lm2343635/RxAlertViewable/master/screenshots/demo.png)
 
 
 #### Customization
 
-Customize you own strings and tint color using the following code.
+Customize your own strings and tint color using the following code.
 
 ```Swfit
 RxAlertCreator.instance.config = RxAlertViewConfig(tip: "My Tip",
@@ -71,4 +73,4 @@ lm2343635, lm2343635@126.com
 
 ## License
 
-RxOrientation is available under the MIT license. See the LICENSE file for more info.
+RxAlertViewable is available under the MIT license. See the LICENSE file for more info.
