@@ -40,4 +40,14 @@ public extension Reactive where Base: UIViewController, Base: RxAlertViewable {
     
 }
 
+public extension Reactive where Base: AnyObject, Base: RxAlertViewable {
+    
+    public var globalAlert: Binder<RxAlert> {
+        return Binder(self.base) { object, alert in
+            object.showGlobalAlert(alert)
+        }
+    }
+    
+}
+
 #endif

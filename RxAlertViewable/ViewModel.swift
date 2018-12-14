@@ -11,6 +11,7 @@ import RxCocoa
 
 class ViewModel {
     
+    let globalTip = PublishSubject<RxAlert>()
     let clickTimes = BehaviorRelay<Int>(value: 0)
     
     var tip: Observable<RxAlert> {
@@ -37,6 +38,10 @@ class ViewModel {
     
     func alert() {
         clickTimes.accept(clickTimes.value + 1)
+    }
+    
+    func globalAlert() {
+        globalTip.onNext(.tip("Global tip"))
     }
     
 }

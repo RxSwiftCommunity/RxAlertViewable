@@ -12,13 +12,23 @@ import SnapKit
 
 class ViewController: UIViewController, RxAlertViewable {
     
-    private lazy var button: UIButton = {
+    private lazy var alertButton: UIButton = {
         let button = UIButton()
         button.setTitle("Open Alert View", for: .normal)
         button.setTitleColor(.blue, for: .normal)
         button.rx.tap.bind { [unowned self] in
             self.viewModel.alert()
-            }.disposed(by: disposeBag)
+        }.disposed(by: disposeBag)
+        return button
+    }()
+    
+    private lazy var globalAlertButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Open Global Alert View", for: .normal)
+        button.setTitleColor(.green, for: .normal)
+        button.rx.tap.bind { [unowned self] in
+            self.viewModel.globalAlert()
+        }.disposed(by: disposeBag)
         return button
     }()
     
@@ -38,16 +48,24 @@ class ViewController: UIViewController, RxAlertViewable {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        view.addSubview(button)
-        
-        button.snp.makeConstraints {
-            $0.center.equalToSuperview()
-            $0.size.equalTo(200)
-        }
+        view.addSubview(alertButton)
+        view.addSubview(globalAlertButton)
+        createConstraints()
         
         viewModel.tip.bind(to: rx.alert).disposed(by: disposeBag)
+        viewModel.globalTip.bind(to: rx.globalAlert).disposed(by: disposeBag)
     }
 
+    private func createConstraints() {
+        alertButton.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
+        
+        globalAlertButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(alertButton.snp.bottom).offset(20)
+        }
+    }
 
 }
 
