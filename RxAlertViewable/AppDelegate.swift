@@ -14,14 +14,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        RxAlertCreator.instance.config = RxAlertConfig(tip: "My Tip",
-                                                               confirm: "My Confirm",
-                                                               warning: "My Warning",
-                                                               error: "My Error",
-                                                               yes: "My Yes",
-                                                               no: "My No",
-                                                               ok: "My OK",
-                                                               tintColor: .blue)
+        RxAlert.config = RxAlertConfig(tip: "My Tip",
+                                       confirm: "My Confirm",
+                                       warning: "My Warning",
+                                       error: "My Error",
+                                       yes: "My Yes",
+                                       no: "My No",
+                                       ok: "My OK",
+                                       tintColor: .blue)
         
         let viewModel = ViewModel()
         let viewController = ViewController(viewModel: viewModel)

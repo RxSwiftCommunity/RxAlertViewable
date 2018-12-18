@@ -50,61 +50,64 @@ public struct RxAlertConfig {
     }
 }
 
-public enum RxAlert {
-    case tip(_ message: String)
-    case customTip(title: String, message: String)
-    case warning(_ message: String)
-    case error(_ message: String)
-    case confirm(_ message: String, onConfirm: (() -> ())?)
-    case customConfirm(title: String, message: String, onConfirm: (() -> ())?)
+public typealias RxAlertCompletion = (() -> ())?
+
+enum RxAlertCategory {
+    case single(RxAlertCompletion)
+    case double(onConfirm: RxAlertCompletion, onDeny: RxAlertCompletion)
 }
 
-public class RxAlertCreator {
+public struct RxAlert {
     
-    public static let instance = RxAlertCreator()
+    public static var config = RxAlertConfig()
     
-    public var config = RxAlertConfig()
+    private var title: String
+    private var message: String
+    private var category: RxAlertCategory
     
-    private init() {}
-    
-    public func create(alert: RxAlert, completion: (() -> ())? = nil) -> UIAlertController {
-        switch alert {
-        case .tip(let message):
-            return createAlert(title: config.tip, message: message)
-        case .customTip(let title, let message):
-            return createAlert(title: title, message: message)
-        case .warning(let message):
-            return createAlert(title: config.warning, message: message)
-        case .error(let message):
-            return createAlert(title: config.error, message: message)
-        case .confirm(let message, let onConfirm):
-            return createConfirm(title: config.confirm, message: message, onConfirm: onConfirm)
-        case .customConfirm(let title, let message, let onConfirm):
-            return createConfirm(title: title, message: message, onConfirm: onConfirm)
-        }
+    public static func tip(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
+        return self.init(title: config.tip, message: message, category: .single(onConfirm))
     }
-
-    private func createConfirm(title: String, message: String, onConfirm: (() -> ())? = nil) -> UIAlertController {
+    
+    public static func customTip(title: String, message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
+        return self.init(title: title, message: message, category: .single(onConfirm))
+    }
+    
+    public static func warning(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
+        return self.init(title: config.warning, message: message, category: .single(onConfirm))
+    }
+    
+    public static func error(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
+        return self.init(title: config.error, message: message, category: .single(onConfirm))
+    }
+    
+    public static func confirm(_ message: String, onConfirm: RxAlertCompletion = nil, onDeny: RxAlertCompletion = nil) -> RxAlert {
+        return self.init(title: config.confirm, message: message, category: .double(onConfirm: onConfirm, onDeny: onDeny))
+    }
+    
+    public static func customConfirm(title: String, message: String, onConfirm: RxAlertCompletion = nil, onDeny: RxAlertCompletion = nil) -> RxAlert {
+        return self.init(title: title, message: message, category: .double(onConfirm: onConfirm, onDeny: onDeny))
+    }
+    
+    public var alertController: UIAlertController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: config.yes, style: .default) { action in
-            onConfirm?()
-        })
-        alertController.addAction(UIAlertAction(title: config.no, style: .cancel))
-        if let tintColor = config.tintColor {
+        switch category {
+        case .single(let onConfirm):
+            alertController.addAction(UIAlertAction(title: RxAlert.config.ok, style: .cancel) { _ in
+                onConfirm?()
+            })
+        case .double(let onConfirm, let onDeny):
+            alertController.addAction(UIAlertAction(title: RxAlert.config.yes, style: .destructive) { _ in
+                onConfirm?()
+            })
+            alertController.addAction(UIAlertAction(title: RxAlert.config.no, style: .cancel) { _ in
+                onDeny?()
+            })
+        }
+        if let tintColor = RxAlert.config.tintColor {
             alertController.view.tintColor = tintColor
         }
         return alertController
     }
-
-    private func createAlert(title: String, message: String) -> UIAlertController {
-        let alertController = UIAlertController(title: title,
-                                                message: message,
-                                                preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: config.ok, style: .cancel))
-        if let tintColor = config.tintColor {
-            alertController.view.tintColor = tintColor
-        }
-        return alertController
-    }
-
+    
 }

@@ -31,8 +31,7 @@ public protocol RxAlertViewable {}
 public extension RxAlertViewable where Self: UIViewController {
     
     public func showAlert(_ alert: RxAlert) {
-        let alertController = RxAlertCreator.instance.create(alert: alert)
-        present(alertController, animated: true)
+        present(alert.alertController, animated: true)
     }
     
 }
@@ -40,12 +39,11 @@ public extension RxAlertViewable where Self: UIViewController {
 public extension RxAlertViewable where Self: AnyObject {
     
     public func showGlobalAlert(_ alert: RxAlert) {
-        let alertController = RxAlertCreator.instance.create(alert: alert)
         let alertWindow = UIWindow(frame: UIScreen.main.bounds)
         alertWindow.rootViewController = UIViewController()
         alertWindow.windowLevel = UIWindow.Level.alert + 1;
         alertWindow.makeKeyAndVisible()
-        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+        alertWindow.rootViewController?.present(alert.alertController, animated: true, completion: nil)
     }
     
 }

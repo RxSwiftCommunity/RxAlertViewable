@@ -41,7 +41,11 @@ class ViewModel {
     }
     
     func globalAlert() {
-        globalTip.onNext(.tip("Global tip"))
+        globalTip.onNext(.confirm("Confirm message.", onConfirm: {
+            print("comfirm")
+        }, onDeny: {
+            print("deny")
+        }))
     }
     
 }
