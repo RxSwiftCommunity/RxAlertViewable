@@ -52,7 +52,7 @@ public struct RxAlertConfig {
 
 public typealias RxAlertCompletion = (() -> ())?
 
-enum RxAlertCategory {
+public enum RxAlertCategory {
     case single(RxAlertCompletion)
     case double(onConfirm: RxAlertCompletion, onDeny: RxAlertCompletion)
 }

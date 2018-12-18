@@ -34,12 +34,12 @@ var tip: Observable<RxAlert> {
 
 RxAlertViewable supports the following alert types.
 
-- ```tip(String)```
-- ```customTip(title: String, message: String)```
-- ```warning(String)```
-- ```error(String)```
-- ```confirm(message: String, onConfirm: (() -> ())?)```
-- ```customConfirm(title: String, message: String, onConfirm: (() -> ())?)```
+- ```tip(_ message:, onConfirm:)```
+- ```customTip(title:, message: String, onConfirm:)```
+- ```warning(_ message:, onConfirm:)```
+- ```error(_ message:, onConfirm:)```
+- ```confirm(_ message:, onConfirm:, onDeny:)```
+- ```customConfirm(title: String, message:, onConfirm:, onDeny:)```
     
 Bind it in the view controller class.
 
@@ -57,14 +57,14 @@ When we invoke the `clickTimes.accept(times)` method in the view model class, an
 Customize your own strings and tint color using the following code.
 
 ```Swfit
-RxAlertCreator.instance.config = RxAlertViewConfig(tip: "My Tip",
-                                                       confirm: "My Confirm",
-                                                       warning: "My Warning",
-                                                       error: "My Error",
-                                                       yes: "My Yes",
-                                                       no: "My No",
-                                                       ok: "My OK",
-                                                       tintColor: .blue)
+RxAlert.config = RxAlertConfig(tip: "My Tip",
+                               confirm: "My Confirm",
+                               warning: "My Warning",
+                               error: "My Error",
+                               yes: "My Yes",
+                               no: "My No",
+                               ok: "My OK",
+                               tintColor: .blue)
 ```
 
 ### Global Alert
