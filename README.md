@@ -56,7 +56,7 @@ When we invoke the `clickTimes.accept(times)` method in the view model class, an
 
 Customize your own strings and tint color using the following code.
 
-```Swfit
+```Swift
 RxAlert.config = RxAlertConfig(tip: "My Tip",
                                confirm: "My Confirm",
                                warning: "My Warning",
@@ -71,7 +71,7 @@ RxAlert.config = RxAlertConfig(tip: "My Tip",
 
 RxAlertViewable supports to show a global alert view in a new UIWindow instance above the current window, by binding to the `rx.globalAlert` singal from any class.
 
-```Swift 
+```Swift
 viewModel.globalTip.bind(to: rx.globalAlert).disposed(by: disposeBag)
 ```
 
