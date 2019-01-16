@@ -54,10 +54,10 @@ public typealias RxAlertCompletion = (() -> ())?
 
 public enum RxAlertCategory {
     case single(RxAlertCompletion)
-    case double(confirmMessage: String,
-        denyMessage: String,
-        onConfirm: RxAlertCompletion,
-        onDeny: RxAlertCompletion)
+    case double(confirmTitle: String,
+                denyTitle: String,
+                onConfirm: RxAlertCompletion,
+                onDeny: RxAlertCompletion)
 }
 
 public struct RxAlert {
@@ -85,13 +85,13 @@ public struct RxAlert {
     }
     
     public static func confirm(_ message: String, onConfirm: RxAlertCompletion = nil, onDeny: RxAlertCompletion = nil) -> RxAlert {
-        return self.init(title: config.confirm, message: message, category: .double(confirmMessage: RxAlert.config.yes, denyMessage: RxAlert.config.no, onConfirm: onConfirm, onDeny: onDeny))
+        return self.init(title: config.confirm, message: message, category: .double(confirmTitle: RxAlert.config.yes, denyTitle: RxAlert.config.no, onConfirm: onConfirm, onDeny: onDeny))
     }
     
-    public static func customConfirm(title: String, message: String, confirmMessage: String? = nil, denyMessage: String? = nil, onConfirm: RxAlertCompletion = nil, onDeny: RxAlertCompletion = nil) -> RxAlert {
-        let confirmMessage = confirmMessage ?? RxAlert.config.yes
-        let denyMessage = denyMessage ?? RxAlert.config.no
-        return self.init(title: title, message: message, category: .double(confirmMessage: confirmMessage, denyMessage: denyMessage, onConfirm: onConfirm, onDeny: onDeny))
+    public static func customConfirm(title: String, message: String, confirmTitle: String? = nil, denyTitle: String? = nil, onConfirm: RxAlertCompletion = nil, onDeny: RxAlertCompletion = nil) -> RxAlert {
+        let confirmTitle = confirmTitle ?? RxAlert.config.yes
+        let denyTitle = denyTitle ?? RxAlert.config.no
+        return self.init(title: title, message: message, category: .double(confirmTitle: confirmTitle, denyTitle: denyTitle, onConfirm: onConfirm, onDeny: onDeny))
     }
     
     public var alertController: UIAlertController {

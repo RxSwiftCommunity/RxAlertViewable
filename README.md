@@ -48,7 +48,7 @@ RxAlertViewable supports the following alert types.
 - ```warning(_ message:, onConfirm:)```
 - ```error(_ message:, onConfirm:)```
 - ```confirm(_ message:, onConfirm:, onDeny:)```
-- ```customConfirm(title: String, message:, onConfirm:, onDeny:)```
+- ```customConfirm(title: String, message:, confirmTitle:, denyTitle:, onConfirm:, onDeny:)```
     
 Bind it in the view controller class.
 
