@@ -12,6 +12,15 @@ To install it, simply add the following line to your Podfile:
 pod 'ShapeView'
 ```
 
+## Run Demo
+
+To run the demo application, install the dependencies with CocoaPods and open the project by `.xcworkspace`.
+
+```Shell
+pod install
+open RxAlertViewable.xcworkspace
+```
+
 ## Documentaion
 
 To use RxAlertViewable, confirm the `RxAlertViewable` protocol in your view controller class at first.
