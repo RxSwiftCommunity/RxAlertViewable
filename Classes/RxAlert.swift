@@ -54,7 +54,10 @@ public typealias RxAlertCompletion = (() -> ())?
 
 public enum RxAlertCategory {
     case single(RxAlertCompletion)
-    case double(onConfirm: RxAlertCompletion, onDeny: RxAlertCompletion)
+    case double(confirmMessage: String,
+        denyMessage: String,
+        onConfirm: RxAlertCompletion,
+        onDeny: RxAlertCompletion)
 }
 
 public struct RxAlert {
@@ -82,11 +85,13 @@ public struct RxAlert {
     }
     
     public static func confirm(_ message: String, onConfirm: RxAlertCompletion = nil, onDeny: RxAlertCompletion = nil) -> RxAlert {
-        return self.init(title: config.confirm, message: message, category: .double(onConfirm: onConfirm, onDeny: onDeny))
+        return self.init(title: config.confirm, message: message, category: .double(confirmMessage: RxAlert.config.yes, denyMessage: RxAlert.config.no, onConfirm: onConfirm, onDeny: onDeny))
     }
     
-    public static func customConfirm(title: String, message: String, onConfirm: RxAlertCompletion = nil, onDeny: RxAlertCompletion = nil) -> RxAlert {
-        return self.init(title: title, message: message, category: .double(onConfirm: onConfirm, onDeny: onDeny))
+    public static func customConfirm(title: String, message: String, confirmMessage: String? = nil, denyMessage: String? = nil, onConfirm: RxAlertCompletion = nil, onDeny: RxAlertCompletion = nil) -> RxAlert {
+        let confirmMessage = confirmMessage ?? RxAlert.config.yes
+        let denyMessage = denyMessage ?? RxAlert.config.no
+        return self.init(title: title, message: message, category: .double(confirmMessage: confirmMessage, denyMessage: denyMessage, onConfirm: onConfirm, onDeny: onDeny))
     }
     
     public var alertController: UIAlertController {
@@ -96,11 +101,11 @@ public struct RxAlert {
             alertController.addAction(UIAlertAction(title: RxAlert.config.ok, style: .cancel) { _ in
                 onConfirm?()
             })
-        case .double(let onConfirm, let onDeny):
-            alertController.addAction(UIAlertAction(title: RxAlert.config.yes, style: .destructive) { _ in
+        case .double(let comfirmMessage, let denyMessage, let onConfirm, let onDeny):
+            alertController.addAction(UIAlertAction(title: comfirmMessage, style: .destructive) { _ in
                 onConfirm?()
             })
-            alertController.addAction(UIAlertAction(title: RxAlert.config.no, style: .cancel) { _ in
+            alertController.addAction(UIAlertAction(title: denyMessage, style: .cancel) { _ in
                 onDeny?()
             })
         }
