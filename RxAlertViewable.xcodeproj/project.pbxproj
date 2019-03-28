@@ -181,7 +181,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-RxAlertViewable/Pods-RxAlertViewable-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-RxAlertViewable/Pods-RxAlertViewable-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
@@ -198,7 +198,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RxAlertViewable/Pods-RxAlertViewable-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RxAlertViewable/Pods-RxAlertViewable-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5E19D2AFADFF3DC0EDF26F36 /* [CP] Check Pods Manifest.lock */ = {
