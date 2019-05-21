@@ -28,17 +28,17 @@ import UIKit
 
 public protocol RxAlertViewable {}
 
-public extension RxAlertViewable where Self: UIViewController {
+extension RxAlertViewable where Self: UIViewController {
     
-    func showAlert(_ alert: RxAlert) {
+    public func showAlert(_ alert: RxAlert) {
         present(alert.alertController, animated: true)
     }
     
 }
 
-public extension RxAlertViewable where Self: AnyObject {
+extension RxAlertViewable where Self: AnyObject {
     
-    func showGlobalAlert(_ alert: RxAlert) {
+    public func showGlobalAlert(_ alert: RxAlert) {
         let alertWindow = UIWindow(frame: UIScreen.main.bounds)
         alertWindow.rootViewController = UIViewController()
         alertWindow.windowLevel = UIWindow.Level.alert + 1;
