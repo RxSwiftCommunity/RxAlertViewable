@@ -38,12 +38,11 @@ public struct RxActionSheetConfig {
     
 }
 
-public typealias RxAlertActionCompletion = ((UIAlertAction) -> Void)?
-
 public enum RxAction {
-    case `default`(title: String, action: RxAlertActionCompletion)
-    case destructive(title: String, action: RxAlertActionCompletion)
-    case cancel(title: String?)
+    case `default`(title: String, action: RxAlertCompletion)
+    case destructive(title: String, action: RxAlertCompletion)
+    case customCancel(title: String)
+    case cancel
 }
 
 public struct RxActionSheet {
@@ -63,18 +62,23 @@ public struct RxActionSheet {
         actions.map {
             switch $0 {
             case .default(let title, let action):
-                return UIAlertAction(title: title, style: .default, handler: action)
-            case .destructive(let title, let action):
-                return UIAlertAction(title: title, style: .destructive, handler: action)
-            case .cancel(let title):
-                if let title = title {
-                    return UIAlertAction(title: title, style: .cancel)
-                } else {
-                    return UIAlertAction(title: RxActionSheet.config.cancel, style: .cancel)
+                return UIAlertAction(title: title, style: .default) { _ in
+                    action?()
                 }
+            case .destructive(let title, let action):
+                return UIAlertAction(title: title, style: .destructive) { _ in
+                    action?()
+                }
+            case .customCancel(let title):
+                return UIAlertAction(title: title, style: .cancel)
+            case .cancel:
+                return UIAlertAction(title: RxActionSheet.config.cancel, style: .cancel)
             }
         }.forEach {
             alertController.addAction($0)
+        }
+        if let tintColor = RxAlert.config.tintColor {
+            alertController.view.tintColor = tintColor
         }
         return alertController
     }

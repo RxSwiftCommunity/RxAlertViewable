@@ -51,9 +51,13 @@ class ViewModel {
     
     func showActionSheet() {
         actionSheet.onNext(.actions(
-            .default(title: "Default", action: { _ in }),
-            .destructive(title: "Destructive", action: { _ in }),
-            .cancel(title: nil)
+            .default(title: "Default", action: {
+                print("Default")
+            }),
+            .destructive(title: "Destructive", action: {
+                print("Destructive")
+            }),
+            .cancel
         ))
     }
     
