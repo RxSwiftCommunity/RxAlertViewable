@@ -13,8 +13,9 @@ class ViewModel {
     
     let globalTip = PublishSubject<RxAlert>()
     let clickTimes = BehaviorRelay<Int>(value: 0)
+    let actionSheet = PublishSubject<RxActionSheet>()
     
-    var tip: Observable<RxAlert> {
+    var alert: Observable<RxAlert> {
         return clickTimes.map { times -> RxAlert in
             let message = "Clicked \(times) time\(times > 1 ? "s" : "")."
             switch times % 5 {
@@ -28,7 +29,7 @@ class ViewModel {
                 return .error(message)
             case 0:
                 return .confirm(message, onConfirm: {
-                    self.alert()
+                    self.showAlert()
                 })
             default:
                 return .tip("???")
@@ -36,16 +37,24 @@ class ViewModel {
         }
     }
     
-    func alert() {
+    func showAlert() {
         clickTimes.accept(clickTimes.value + 1)
     }
     
-    func globalAlert() {
+    func showGlobalAlert() {
         globalTip.onNext(.confirm("Confirm message.", onConfirm: {
             print("comfirm")
         }, onDeny: {
             print("deny")
         }))
+    }
+    
+    func showActionSheet() {
+        actionSheet.onNext(.actions(
+            .default(title: "Default", action: { _ in }),
+            .destructive(title: "Destructive", action: { _ in }),
+            .cancel(title: nil)
+        ))
     }
     
 }

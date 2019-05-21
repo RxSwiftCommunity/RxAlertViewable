@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4845A757A7D513221E86225D /* Pods_RxAlertViewable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42707893D70F1A995F723D5B /* Pods_RxAlertViewable.framework */; };
+		771E7C4F2293CAFE006D3CBA /* RxActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771E7C4E2293CAFE006D3CBA /* RxActionSheet.swift */; };
 		779D307E21BFC59000EBFB3C /* RxAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779D307D21BFC59000EBFB3C /* RxAlert.swift */; };
 		77B1656021B2573700958CEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1655F21B2573700958CEC /* AppDelegate.swift */; };
 		77B1656221B2573700958CEC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1656121B2573700958CEC /* ViewController.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		37FC665BB3EA291747D42BD3 /* Pods-RxAlertViewable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxAlertViewable.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxAlertViewable/Pods-RxAlertViewable.debug.xcconfig"; sourceTree = "<group>"; };
 		42707893D70F1A995F723D5B /* Pods_RxAlertViewable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxAlertViewable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		771E7C4E2293CAFE006D3CBA /* RxActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxActionSheet.swift; sourceTree = "<group>"; };
 		779D307D21BFC59000EBFB3C /* RxAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxAlert.swift; sourceTree = "<group>"; };
 		77B1655C21B2573700958CEC /* RxAlertViewable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxAlertViewable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77B1655F21B2573700958CEC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 		77B1657321BF8A6700958CEC /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				771E7C4E2293CAFE006D3CBA /* RxActionSheet.swift */,
 				779D307D21BFC59000EBFB3C /* RxAlert.swift */,
 				77B1657421BF8AD300958CEC /* RxAlertViewable.swift */,
 				77B1657621BF8B4B00958CEC /* RxAlertViewable+Rx.swift */,
@@ -232,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77B1657721BF8B4B00958CEC /* RxAlertViewable+Rx.swift in Sources */,
+				771E7C4F2293CAFE006D3CBA /* RxActionSheet.swift in Sources */,
 				77B1656221B2573700958CEC /* ViewController.swift in Sources */,
 				77B1657521BF8AD300958CEC /* RxAlertViewable.swift in Sources */,
 				77B1657221BF88B600958CEC /* ViewModel.swift in Sources */,

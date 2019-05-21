@@ -30,19 +30,25 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-public extension Reactive where Base: UIViewController, Base: RxAlertViewable {
+extension Reactive where Base: UIViewController, Base: RxAlertViewable {
     
-    var alert: Binder<RxAlert> {
+    public var alert: Binder<RxAlert> {
         return Binder(self.base) { viewController, alert in
             viewController.showAlert(alert)
         }
     }
     
+    public var actionSheet: Binder<RxActionSheet> {
+        return Binder(self.base) { viewControlelr, actionSheet in
+            viewControlelr.showActionSheet(actionSheet)
+        }
+    }
+    
 }
 
-public extension Reactive where Base: AnyObject, Base: RxAlertViewable {
+extension Reactive where Base: AnyObject, Base: RxAlertViewable {
     
-    var globalAlert: Binder<RxAlert> {
+    public var globalAlert: Binder<RxAlert> {
         return Binder(self.base) { object, alert in
             object.showGlobalAlert(alert)
         }

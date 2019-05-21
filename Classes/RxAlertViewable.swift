@@ -34,6 +34,10 @@ extension RxAlertViewable where Self: UIViewController {
         present(alert.alertController, animated: true)
     }
     
+    public func showActionSheet(_ actionSheet: RxActionSheet) {
+        present(actionSheet.alertController, animated: true)
+    }
+    
 }
 
 extension RxAlertViewable where Self: AnyObject {

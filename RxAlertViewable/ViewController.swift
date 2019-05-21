@@ -17,7 +17,7 @@ class ViewController: UIViewController, RxAlertViewable {
         button.setTitle("Open Alert View", for: .normal)
         button.setTitleColor(.blue, for: .normal)
         button.rx.tap.bind { [unowned self] in
-            self.viewModel.alert()
+            self.viewModel.showAlert()
         }.disposed(by: disposeBag)
         return button
     }()
@@ -27,7 +27,17 @@ class ViewController: UIViewController, RxAlertViewable {
         button.setTitle("Open Global Alert View", for: .normal)
         button.setTitleColor(.green, for: .normal)
         button.rx.tap.bind { [unowned self] in
-            self.viewModel.globalAlert()
+            self.viewModel.showGlobalAlert()
+        }.disposed(by: disposeBag)
+        return button
+    }()
+    
+    private lazy var actionSheetButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Open Action Sheet", for: .normal)
+        button.setTitleColor(.red, for: .normal)
+        button.rx.tap.bind { [unowned self] in
+            self.viewModel.showActionSheet()
         }.disposed(by: disposeBag)
         return button
     }()
@@ -50,21 +60,30 @@ class ViewController: UIViewController, RxAlertViewable {
         view.backgroundColor = .white
         view.addSubview(alertButton)
         view.addSubview(globalAlertButton)
+        view.addSubview(actionSheetButton)
         createConstraints()
         
-        viewModel.tip.bind(to: rx.alert).disposed(by: disposeBag)
+        viewModel.alert.bind(to: rx.alert).disposed(by: disposeBag)
         viewModel.globalTip.bind(to: rx.globalAlert).disposed(by: disposeBag)
+        viewModel.actionSheet.bind(to: rx.actionSheet).disposed(by: disposeBag)
     }
 
     private func createConstraints() {
+        
         alertButton.snp.makeConstraints {
-            $0.center.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(globalAlertButton.snp.top).offset(-20)
         }
         
         globalAlertButton.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(alertButton.snp.bottom).offset(20)
+            $0.center.equalToSuperview()
         }
+        
+        actionSheetButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(globalAlertButton.snp.bottom).offset(20)
+        }
+        
     }
 
 }
