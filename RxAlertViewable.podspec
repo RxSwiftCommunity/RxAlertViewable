@@ -7,7 +7,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RxAlertViewable'
-  s.version          = '0.5.1'
+  s.version          = '0.6'
   s.summary          = 'A simple alert library with RxSwift supported.'
 
   s.description      = <<-DESC
@@ -21,7 +21,7 @@ RxAlertViewable is created for developing the MVVM app with RxSwift. It supports
   
   s.ios.deployment_target = '9.0'
   s.source_files = 'Classes/**/*'
-  s.dependency 'RxSwift', '~> 4.4'
-  s.dependency 'RxCocoa', '~> 4.4'
+  s.dependency 'RxSwift', '~> 5'
+  s.dependency 'RxCocoa', '~> 5'
 
 end
