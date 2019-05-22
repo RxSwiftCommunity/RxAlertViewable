@@ -1,0 +1,14 @@
+use_frameworks!
+platform :ios, '10.0'
+
+target 'RxAlertViewable_Example' do
+  pod 'RxAlertViewable', :path => '../'
+  pod 'RxCocoa'
+  pod 'RxSwift'
+  pod 'SnapKit'
+
+  target 'RxAlertViewable_Tests' do
+    inherit! :search_paths    
+    pod 'RxAlertViewable', :path => '../'
+  end
+end

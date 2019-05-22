@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxCocoa
+import RxAlertViewable
 
 class ViewModel {
     

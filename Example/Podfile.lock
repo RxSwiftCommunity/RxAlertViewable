@@ -1,4 +1,7 @@
 PODS:
+  - RxAlertViewable (0.6):
+    - RxCocoa (~> 5)
+    - RxSwift (~> 5)
   - RxCocoa (5.0.0):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
@@ -8,6 +11,7 @@ PODS:
   - SnapKit (5.0.0)
 
 DEPENDENCIES:
+  - RxAlertViewable (from `../`)
   - RxCocoa
   - RxSwift
   - SnapKit
@@ -19,12 +23,17 @@ SPEC REPOS:
     - RxSwift
     - SnapKit
 
+EXTERNAL SOURCES:
+  RxAlertViewable:
+    :path: "../"
+
 SPEC CHECKSUMS:
+  RxAlertViewable: df967c6a5a71926b318967de282a411bea7acea3
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
   RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
 
-PODFILE CHECKSUM: 538699eebc43bdab8fab0a84467ccc087ec06cd1
+PODFILE CHECKSUM: a06537284779d50eaf3659b543c488720b33a729
 
 COCOAPODS: 1.6.1

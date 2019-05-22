@@ -1,0 +1,8 @@
+# Xcode
+xcuserdata/
+*.moved-aside
+*.xcuserstate
+
+# Pod
+*.xcworkspace/
+Pods/
