@@ -19,7 +19,7 @@ class ViewController: UIViewController, RxAlertViewable {
         button.setTitleColor(.blue, for: .normal)
         button.rx.tap.bind { [unowned self] in
             self.viewModel.showAlert()
-            }.disposed(by: disposeBag)
+        }.disposed(by: disposeBag)
         return button
     }()
     
@@ -29,7 +29,7 @@ class ViewController: UIViewController, RxAlertViewable {
         button.setTitleColor(.green, for: .normal)
         button.rx.tap.bind { [unowned self] in
             self.viewModel.showGlobalAlert()
-            }.disposed(by: disposeBag)
+        }.disposed(by: disposeBag)
         return button
     }()
     
@@ -39,7 +39,7 @@ class ViewController: UIViewController, RxAlertViewable {
         button.setTitleColor(.red, for: .normal)
         button.rx.tap.bind { [unowned self] in
             self.viewModel.showActionSheet()
-            }.disposed(by: disposeBag)
+        }.disposed(by: disposeBag)
         return button
     }()
     

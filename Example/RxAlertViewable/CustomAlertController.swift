@@ -10,13 +10,7 @@ import UIKit
 import RxAlertViewable
 import SnapKit
 
-final class CustomAlertController: UIViewController, RxAlertController {
-
-    let alertTitle: String?
-    let message: String?
-
-    var onConfirm: RxAlertCompletion = nil
-    var onDeny: RxAlertCompletion = nil
+class CustomAlertController: UIViewController {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -70,10 +64,13 @@ final class CustomAlertController: UIViewController, RxAlertController {
         return view
     }()
 
-    static func create(title: String?, message: String?) -> Self {
-        return self.init(title: title, message: message)
-    }
 
+    private let alertTitle: String?
+    private let message: String?
+    
+    private var onConfirm: RxAlertCompletion = nil
+    private var onDeny: RxAlertCompletion = nil
+    
     required init(title: String?, message: String?) {
         alertTitle = title
         self.message = message
@@ -86,21 +83,6 @@ final class CustomAlertController: UIViewController, RxAlertController {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    func setAction(for category: RxAlertCategory) {
-        switch category {
-        case .single(let onConfirm):
-            confirmButton.setTitle("OK", for: .normal)
-            self.onConfirm = onConfirm
-            denyButton.isHidden = true
-        case .double(let confirmMessage, let denyMessage, let onConfirm, let onDeny):
-            confirmButton.setTitle(confirmMessage, for: .normal)
-            self.onConfirm = onConfirm
-            denyButton.isHidden = false
-            denyButton.setTitle(denyMessage, for: .normal)
-            self.onDeny = onDeny
-        }
     }
 
     override func viewDidLoad() {
@@ -157,4 +139,27 @@ final class CustomAlertController: UIViewController, RxAlertController {
             self.onDeny?()
         }
     }
+}
+
+extension CustomAlertController: RxAlertController {
+    
+    static func create(title: String?, message: String?) -> Self {
+        return self.init(title: title, message: message)
+    }
+
+    func setAction(for category: RxAlertCategory) {
+        switch category {
+        case .single(let onConfirm):
+            confirmButton.setTitle("OK", for: .normal)
+            self.onConfirm = onConfirm
+            denyButton.isHidden = true
+        case .double(let confirmMessage, let denyMessage, let onConfirm, let onDeny):
+            confirmButton.setTitle(confirmMessage, for: .normal)
+            self.onConfirm = onConfirm
+            denyButton.isHidden = false
+            denyButton.setTitle(denyMessage, for: .normal)
+            self.onDeny = onDeny
+        }
+    }
+    
 }

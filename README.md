@@ -3,6 +3,8 @@
 RxAlertViewable is created for developing the MVVM app with RxSwift. 
 It supports to show a simple alert from the view model class using the signal `Observable<RxAlert>`.
 
+![Demo](https://raw.githubusercontent.com/lm2343635/RxAlertViewable/master/screenshots/demo.jpg)
+
 ## Installation
 
 RxAlertViewable is available through [CocoaPods](https://cocoapods.org). 
@@ -43,12 +45,12 @@ var tip: Observable<RxAlert> {
 
 RxAlertViewable supports the following alert types.
 
-- ```tip(_ message:, onConfirm:)```
-- ```customTip(title:, message: String, onConfirm:)```
-- ```warning(_ message:, onConfirm:)```
-- ```error(_ message:, onConfirm:)```
-- ```confirm(_ message:, onConfirm:, onDeny:)```
-- ```customConfirm(title: String, message:, confirmTitle:, denyTitle:, onConfirm:, onDeny:)```
+- ```tip(_ message:, onConfirm:, controllerType:)```
+- ```customTip(title:, message: String, onConfirm:, controllerType:)```
+- ```warning(_ message:, onConfirm:, controllerType:)```
+- ```error(_ message:, onConfirm:, controllerType:)```
+- ```confirm(_ message:, onConfirm:, onDeny:,  controllerType:)```
+- ```customConfirm(title: String, message:, confirmTitle:, denyTitle:, onConfirm:, onDeny:, controllerType:)```
     
 Bind it in the view controller class.
 
@@ -58,29 +60,70 @@ viewModel.tip.bind(to: rx.alert).disposed(by: disposeBag)
 
 When we invoke the `clickTimes.accept(times)` method in the view model class, an alert controller will be shown in the view controller.
 
-![Demo](https://raw.githubusercontent.com/lm2343635/RxAlertViewable/master/screenshots/demo.png)
-
-
-### Customization
+### Customized title and message
 
 Customize your own strings and tint color using the following code.
 
-```Swift
-RxAlert.config = RxAlertConfig(tip: "My Tip",
-                               confirm: "My Confirm",
-                               warning: "My Warning",
-                               error: "My Error",
-                               yes: "My Yes",
-                               no: "My No",
-                               ok: "My OK",
-                               tintColor: .blue)
+```swift
+RxAlert.config = RxAlertConfig(
+    tip: "My Tip",
+    confirm: "My Confirm",
+    warning: "My Warning",
+    error: "My Error",
+    yes: "My Yes",
+    no: "My No",
+    ok: "My OK",
+    tintColor: .blue
+)
+```
+
+### Customized alert controller
+
+Any view controller which implements the `RxAlertController` protocol can be used as a customized alert controller.
+
+A demo custom alert controller is here https://github.com/lm2343635/RxAlertViewable/blob/master/Example/RxAlertViewable/CustomAlertController.swift
+
+```swift
+extension CustomAlertController: RxAlertController {
+    
+    static func create(title: String?, message: String?) -> Self {
+        return self.init(title: title, message: message)
+    }
+
+    func setAction(for category: RxAlertCategory) {
+        switch category {
+        case .single(let onConfirm):
+            confirmButton.setTitle("OK", for: .normal)
+            self.onConfirm = onConfirm
+            denyButton.isHidden = true
+        case .double(let confirmMessage, let denyMessage, let onConfirm, let onDeny):
+            confirmButton.setTitle(confirmMessage, for: .normal)
+            self.onConfirm = onConfirm
+            denyButton.isHidden = false
+            denyButton.setTitle(denyMessage, for: .normal)
+            self.onDeny = onDeny
+        }
+    }
+    
+}
+```
+
+To show an alert with customzied alert controller, the `controllerType` should be indicated.
+
+```swift
+RxAlert.customTip(
+    title: "Custom Controller",
+    message: message,
+    onConfirm: nil,
+    controllerType: CustomAlertController.self
+)
 ```
 
 ### Global Alert
 
 RxAlertViewable supports to show a global alert view in a new UIWindow instance above the current window, by binding to the `rx.globalAlert` singal from any class.
 
-```Swift
+```swift
 viewModel.globalTip.bind(to: rx.globalAlert).disposed(by: disposeBag)
 ```
 
