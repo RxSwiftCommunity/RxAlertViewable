@@ -33,7 +33,7 @@ class ViewModel {
                     title: "Custom Controller",
                     message: message,
                     onConfirm: nil,
-                    alertControllerClass: CustomAlertController.self
+                    controllerType: CustomAlertController.self
                 )
             case 6:
                 return .customConfirm(
@@ -43,7 +43,7 @@ class ViewModel {
                     denyTitle: "Cancel",
                     onConfirm: nil,
                     onDeny: nil,
-                    alertControllerClass: CustomAlertController.self
+                    controllerType: CustomAlertController.self
                 )
             case 0:
                 return .confirm(message, onConfirm: {
