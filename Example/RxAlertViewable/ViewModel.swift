@@ -19,7 +19,7 @@ class ViewModel {
     var alert: Observable<RxAlert> {
         return clickTimes.map { times -> RxAlert in
             let message = "Clicked \(times) time\(times > 1 ? "s" : "")."
-            switch times % 5 {
+            switch times % 7 {
             case 1:
                 return .tip(message)
             case 2:
@@ -28,6 +28,23 @@ class ViewModel {
                 return .warning(message)
             case 4:
                 return .error(message)
+            case 5:
+                return .customTip(
+                    title: "Custom Controller",
+                    message: message,
+                    onConfirm: nil,
+                    alertControllerClass: CustomAlertController.self
+                )
+            case 6:
+                return .customConfirm(
+                    title: "Custom Controller",
+                    message: message,
+                    confirmTitle: "OK",
+                    denyTitle: "Cancel",
+                    onConfirm: nil,
+                    onDeny: nil,
+                    alertControllerClass: CustomAlertController.self
+                )
             case 0:
                 return .confirm(message, onConfirm: {
                     self.showAlert()
@@ -61,5 +78,4 @@ class ViewModel {
             .cancel
         ))
     }
-    
 }
