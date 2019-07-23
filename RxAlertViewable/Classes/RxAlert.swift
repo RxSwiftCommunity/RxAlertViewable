@@ -130,7 +130,7 @@ extension RxAlert {
         onConfirm: RxAlertCompletion = nil,
         onDeny: RxAlertCompletion = nil,
         controllerType: RxAlertController.Type = UIAlertController.self
-        ) -> RxAlert {
+    ) -> RxAlert {
         return self.init(
             title: title,
             message: message,

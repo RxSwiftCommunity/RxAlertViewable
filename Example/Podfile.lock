@@ -1,5 +1,5 @@
 PODS:
-  - RxAlertViewable (0.7):
+  - RxAlertViewable (0.7.1):
     - RxCocoa (~> 5)
     - RxSwift (~> 5)
   - RxCocoa (5.0.0):
@@ -28,7 +28,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  RxAlertViewable: eb04ac895c5096af6e23de9b65371a9120e61ee9
+  RxAlertViewable: 4d090520698ec9628c03e0dcc48a7fa75f827f03
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
   RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
@@ -36,4 +36,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: a06537284779d50eaf3659b543c488720b33a729
 
-COCOAPODS: 1.7.4
+COCOAPODS: 1.7.5
