@@ -68,12 +68,22 @@ public struct RxAlert {
 
     private var title: String
     private var message: String
+    private var imageUrlString: String?
     private var category: RxAlertCategory
     private var controllerType: RxAlertController.Type
+    
+    init(title: String, message: String, imageUrlString: String? = nil, category: RxAlertCategory, controllerType: RxAlertController.Type) {
+        self.title = title
+        self.message = message
+        self.imageUrlString = imageUrlString
+        self.category = category
+        self.controllerType = controllerType
+    }
 
     var alertController: RxAlertController {
         let alertController = controllerType.create(title: title, message: message)
         alertController.setAction(for: category)
+        alertController.setImage(urlString: imageUrlString)
         if let tintColor = RxAlert.config.tintColor {
             alertController.view.tintColor = tintColor
         }
@@ -107,6 +117,25 @@ extension RxAlert {
             title: title,
             message: message,
             category: .single(onConfirm),
+            controllerType: controllerType
+        )
+    }
+    
+    public static func customDoubleTip(
+        title: String,
+        message: String,
+        imageUrlString: String? = nil,
+        confirmTitle: String,
+        denyTitle: String,
+        onConfirm: RxAlertCompletion = nil,
+        onDeny: RxAlertCompletion = nil,
+        controllerType: RxAlertController.Type = UIAlertController.self
+        ) -> RxAlert {
+        return self.init(
+            title: title,
+            message: message,
+            imageUrlString: imageUrlString,
+            category: .double(confirmTitle: confirmTitle, denyTitle: denyTitle, onConfirm: onConfirm, onDeny: onDeny),
             controllerType: controllerType
         )
     }

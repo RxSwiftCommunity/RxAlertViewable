@@ -31,6 +31,15 @@ public protocol RxAlertController: UIViewController {
     static func create(title: String?, message: String?) -> Self
 
     func setAction(for category: RxAlertCategory)
+    func setImage(urlString: String?)
+}
+
+public extension RxAlertController {
+    
+    func setImage(urlString: String?) {
+        
+    }
+    
 }
 
 extension UIAlertController: RxAlertController {
