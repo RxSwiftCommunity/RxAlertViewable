@@ -12,51 +12,41 @@ import RxAlertViewable
 
 class ViewModel {
     
+    let alert = PublishSubject<RxAlert>()
     let globalTip = PublishSubject<RxAlert>()
-    let clickTimes = BehaviorRelay<Int>(value: 0)
     let actionSheet = PublishSubject<RxActionSheet>()
     
-    var alert: Observable<RxAlert> {
-        return clickTimes.map { times -> RxAlert in
-            let message = "Clicked \(times) time\(times > 1 ? "s" : "")."
-            switch times % 7 {
-            case 1:
-                return .tip(message)
-            case 2:
-                return .customTip(title: "Custom Tip", message: message)
-            case 3:
-                return .warning(message)
-            case 4:
-                return .error(message)
-            case 5:
-                return .customTip(
-                    title: "Custom Controller",
-                    message: message,
-                    onConfirm: nil,
-                    controllerType: CustomAlertController.self
-                )
-            case 6:
-                return .customConfirm(
-                    title: "Custom Controller",
-                    message: message,
-                    confirmTitle: "OK",
-                    denyTitle: "Cancel",
-                    onConfirm: nil,
-                    onDeny: nil,
-                    controllerType: CustomAlertController.self
-                )
-            case 0:
-                return .confirm(message, onConfirm: {
-                    self.showAlert()
-                })
-            default:
-                return .tip("???")
-            }
+    private var clickTimes = 0
+    
+    func showAlert() {
+        clickTimes += 1
+        let message = "Clicked \(clickTimes) time\(clickTimes > 1 ? "s" : "")."
+        switch clickTimes % 5 {
+        case 1:
+            alert.onNext(.tip(message))
+        case 2:
+            alert.onNext(.customTip(title: "Custom Tip", message: message))
+        case 3:
+            alert.onNext(.warning(message))
+        case 4:
+            alert.onNext(.error(message))
+        case 0:
+            alert.onNext(.confirm(message, onConfirm: {
+                self.showAlert()
+            }))
+        default:
+            alert.onNext(.tip("???"))
         }
     }
     
-    func showAlert() {
-        clickTimes.accept(clickTimes.value + 1)
+    func showCustomizedAlert() {
+        alert.onNext(.customConfirm(
+            title: "Custom Controller",
+            message: "Custom alert",
+            item: CustomAlertItem(name: "Meng Li", avatar: URL(string: "https://avatars0.githubusercontent.com/u/9463655")),
+            onConfirm: nil,
+            onDeny: nil
+        ))
     }
     
     func showGlobalAlert() {

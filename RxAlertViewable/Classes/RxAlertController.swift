@@ -26,20 +26,22 @@
 
 import UIKit
 
+public protocol RxAlertItem {
+    static var controllerType: RxAlertController.Type { get }
+}
+
 public protocol RxAlertController: UIViewController {
 
     static func create(title: String?, message: String?) -> Self
 
-    func setAction(for category: RxAlertCategory)
-    func setImage(urlString: String?)
+    func setAction(for category: RxAlertCategory, item: RxAlertItem?)
 }
 
-public extension RxAlertController {
+struct UIAlertItem: RxAlertItem {
+    static let controllerType: RxAlertController.Type = UIAlertController.self
     
-    func setImage(urlString: String?) {
-        
-    }
-    
+    var confirmTitle: String
+    var denyTitle: String
 }
 
 extension UIAlertController: RxAlertController {
@@ -48,19 +50,26 @@ extension UIAlertController: RxAlertController {
         return self.init(title: title, message: message, preferredStyle: .alert)
     }
 
-    public func setAction(for category: RxAlertCategory) {
+    public func setAction(for category: RxAlertCategory, item: RxAlertItem?) {
+        var confirmTitle = RxAlert.config.yes
+        var denyTitle = RxAlert.config.no
+        if let alertItem = item as? UIAlertItem {
+            confirmTitle = alertItem.confirmTitle
+            denyTitle = alertItem.denyTitle
+        }
         switch category {
         case .single(let onConfirm):
-            addAction(UIAlertAction(title: RxAlert.config.ok, style: .cancel) { _ in
+            addAction(UIAlertAction(title: title, style: .cancel) { _ in
                 onConfirm?()
             })
-        case .double(let comfirmMessage, let denyMessage, let onConfirm, let onDeny):
-            addAction(UIAlertAction(title: comfirmMessage, style: .destructive) { _ in
+        case .double(let onConfirm, let onDeny):
+            addAction(UIAlertAction(title: confirmTitle, style: .destructive) { _ in
                 onConfirm?()
             })
-            addAction(UIAlertAction(title: denyMessage, style: .cancel) { _ in
+            addAction(UIAlertAction(title: denyTitle, style: .cancel) { _ in
                 onDeny?()
             })
         }
     }
+    
 }

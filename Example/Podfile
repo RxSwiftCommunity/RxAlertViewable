@@ -6,6 +6,7 @@ target 'RxAlertViewable_Example' do
   pod 'RxCocoa'
   pod 'RxSwift'
   pod 'SnapKit'
+  pod 'Kingfisher'
 
   target 'RxAlertViewable_Tests' do
     inherit! :search_paths    

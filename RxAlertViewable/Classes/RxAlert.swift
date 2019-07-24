@@ -37,8 +37,16 @@ public struct RxAlertConfig {
     var ok: String
     var tintColor: UIColor?
     
-    public init(tip: String? = nil, confirm: String? = nil, warning: String? = nil, error: String? = nil,
-        yes: String? = nil, no: String? = nil, ok: String? = nil, tintColor: UIColor? = nil) {
+    public init(
+        tip: String? = nil,
+        confirm: String? = nil,
+        warning: String? = nil,
+        error: String? = nil,
+        yes: String? = nil,
+        no: String? = nil,
+        ok: String? = nil,
+        tintColor: UIColor? = nil
+    ) {
         self.tip = tip ?? "Tip"
         self.confirm = confirm ?? "Confirm"
         self.warning = warning ?? "Warning"
@@ -48,18 +56,14 @@ public struct RxAlertConfig {
         self.ok = ok ?? "OK"
         self.tintColor = tintColor
     }
+    
 }
 
 public typealias RxAlertCompletion = (() -> ())?
 
 public enum RxAlertCategory {
-    case single(RxAlertCompletion)
-    case double(
-        confirmTitle: String,
-        denyTitle: String,
-        onConfirm: RxAlertCompletion,
-        onDeny: RxAlertCompletion
-    )
+    case single(onConfirm: RxAlertCompletion)
+    case double(onConfirm: RxAlertCompletion, onDeny: RxAlertCompletion)
 }
 
 public struct RxAlert {
@@ -68,22 +72,26 @@ public struct RxAlert {
 
     private var title: String
     private var message: String
-    private var imageUrlString: String?
+    private var item: RxAlertItem?
     private var category: RxAlertCategory
-    private var controllerType: RxAlertController.Type
     
-    init(title: String, message: String, imageUrlString: String? = nil, category: RxAlertCategory, controllerType: RxAlertController.Type) {
+    init(title: String, message: String, item: RxAlertItem? = nil, category: RxAlertCategory) {
         self.title = title
         self.message = message
-        self.imageUrlString = imageUrlString
+        self.item = item
         self.category = category
-        self.controllerType = controllerType
     }
 
     var alertController: RxAlertController {
+        let controllerType: RxAlertController.Type
+        if let item = item {
+            controllerType = type(of: item).controllerType
+        } else {
+            controllerType = UIAlertController.self
+        }
+        
         let alertController = controllerType.create(title: title, message: message)
-        alertController.setAction(for: category)
-        alertController.setImage(urlString: imageUrlString)
+        alertController.setAction(for: category, item: item)
         if let tintColor = RxAlert.config.tintColor {
             alertController.view.tintColor = tintColor
         }
@@ -94,108 +102,68 @@ public struct RxAlert {
 
 extension RxAlert {
     
-    public static func tip(
-        _ message: String,
-        onConfirm: RxAlertCompletion = nil,
-        controllerType: RxAlertController.Type = UIAlertController.self
-    ) -> RxAlert {
+    public static func tip(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
         return self.init(
             title: config.tip,
             message: message,
-            category: .single(onConfirm),
-            controllerType: controllerType
+            category: .single(onConfirm: onConfirm)
         )
     }
     
-    public static func customTip(
-        title: String,
-        message: String,
-        onConfirm: RxAlertCompletion = nil,
-        controllerType: RxAlertController.Type = UIAlertController.self
-    ) -> RxAlert {
-        return self.init(
-            title: title,
-            message: message,
-            category: .single(onConfirm),
-            controllerType: controllerType
-        )
-    }
-    
-    public static func customDoubleTip(
-        title: String,
-        message: String,
-        imageUrlString: String? = nil,
-        confirmTitle: String,
-        denyTitle: String,
-        onConfirm: RxAlertCompletion = nil,
-        onDeny: RxAlertCompletion = nil,
-        controllerType: RxAlertController.Type = UIAlertController.self
-    ) -> RxAlert {
-        return self.init(
-            title: title,
-            message: message,
-            imageUrlString: imageUrlString,
-            category: .double(confirmTitle: confirmTitle, denyTitle: denyTitle, onConfirm: onConfirm, onDeny: onDeny),
-            controllerType: controllerType
-        )
-    }
-    
-    public static func warning(
-        _ message: String,
-        onConfirm: RxAlertCompletion = nil,
-        controllerType: RxAlertController.Type = UIAlertController.self
-    ) -> RxAlert {
+    public static func warning(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
         return self.init(
             title: config.warning,
             message: message,
-            category: .single(onConfirm),
-            controllerType: controllerType
+            category: .single(onConfirm: onConfirm)
         )
     }
     
-    public static func error(
-        _ message: String,
-        onConfirm: RxAlertCompletion = nil,
-        controllerType: RxAlertController.Type = UIAlertController.self
-    ) -> RxAlert {
+    public static func error(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
         return self.init(
             title: config.error,
             message: message,
-            category: .single(onConfirm),
-            controllerType: controllerType
+            category: .single(onConfirm: onConfirm)
         )
     }
     
     public static func confirm(
         _ message: String,
         onConfirm: RxAlertCompletion = nil,
-        onDeny: RxAlertCompletion = nil,
-        controllerType: RxAlertController.Type = UIAlertController.self
+        onDeny: RxAlertCompletion = nil
     ) -> RxAlert {
         return self.init(
             title: config.confirm,
             message: message,
-            category: .double(confirmTitle: RxAlert.config.yes, denyTitle: RxAlert.config.no, onConfirm: onConfirm, onDeny: onDeny),
-            controllerType: controllerType
+            category: .double(onConfirm: onConfirm, onDeny: onDeny)
+        )
+    }
+    
+    public static func customTip(
+        title: String,
+        message: String,
+        item: RxAlertItem? = nil,
+        onConfirm: RxAlertCompletion = nil
+    ) -> RxAlert {
+        return self.init(
+            title: title,
+            message: message,
+            item: item,
+            category: .single(onConfirm: onConfirm)
         )
     }
     
     public static func customConfirm(
         title: String,
         message: String,
-        confirmTitle: String? = nil,
-        denyTitle: String? = nil,
+        item: RxAlertItem? = nil,
         onConfirm: RxAlertCompletion = nil,
-        onDeny: RxAlertCompletion = nil,
-        controllerType: RxAlertController.Type = UIAlertController.self
+        onDeny: RxAlertCompletion = nil
     ) -> RxAlert {
-        let confirmTitle = confirmTitle ?? RxAlert.config.yes
-        let denyTitle = denyTitle ?? RxAlert.config.no
         return self.init(
             title: title,
             message: message,
-            category: .double(confirmTitle: confirmTitle, denyTitle: denyTitle, onConfirm: onConfirm, onDeny: onDeny),
-            controllerType: controllerType
+            item: item,
+            category: .double(onConfirm: onConfirm, onDeny: onDeny)
         )
     }
     
