@@ -31,34 +31,30 @@ To use RxAlertViewable, confirm the `RxAlertViewable` protocol in your view cont
 class ViewController: UIViewController, RxAlertViewable {}
 ```
 
-Prepare a singal `Observable<RxAlert>` in your view model class.
+Prepare a singal `alert` in your view model class.
 
-```Swift
-let clickTimes = BehaviorRelay<Int>(value: 0)
-
-var tip: Observable<RxAlert> {
-    return clickTimes.map {
-        RxAlert.tip(message: "Clicked \($0) times.")
-    }
-}
+```swift
+let alert = PublishSubject<RxAlert>()
 ```
 
-RxAlertViewable supports the following alert types.
-
-- ```tip(_ message:, onConfirm:, controllerType:)```
-- ```customTip(title:, message: String, onConfirm:, controllerType:)```
-- ```warning(_ message:, onConfirm:, controllerType:)```
-- ```error(_ message:, onConfirm:, controllerType:)```
-- ```confirm(_ message:, onConfirm:, onDeny:,  controllerType:)```
-- ```customConfirm(title: String, message:, confirmTitle:, denyTitle:, onConfirm:, onDeny:, controllerType:)```
-    
-Bind it in the view controller class.
+Then, bind it in the view controller class.
 
 ```Swift
 viewModel.tip.bind(to: rx.alert).disposed(by: disposeBag)
 ```
 
-When we invoke the `clickTimes.accept(times)` method in the view model class, an alert controller will be shown in the view controller.
+RxAlertViewable supports the following basic alert types.
+
+- ```tip(_ message:, onConfirm:, controllerType:)```
+- ```warning(_ message:, onConfirm:, controllerType:)```
+- ```error(_ message:, onConfirm:, controllerType:)```
+- ```confirm(_ message:, onConfirm:, onDeny:,  controllerType:)```
+
+To show an alert, just send a singal to `alert`.
+
+```swift
+alert.onNext(.tip("Hello"))
+``` 
 
 ### Customized title and message
 
@@ -79,44 +75,64 @@ RxAlert.config = RxAlertConfig(
 
 ### Customized alert controller
 
-Any view controller which implements the `RxAlertController` protocol can be used as a customized alert controller.
+RxAlertViewable supports the following customzied alert types.
+
+- ```customTip(title:, message: String, item:, onConfirm:)```
+- ```customConfirm(title: String, message:, item:, onConfirm:, onDeny:)```
+
+To use a customized alert, a data type which implements the `RxAlertItem` protocol, 
+and a view controller which implements the `RxAlertController` protocol show be prepared.
 
 A demo custom alert controller is here https://github.com/lm2343635/RxAlertViewable/blob/master/Example/RxAlertViewable/CustomAlertController.swift
 
 ```swift
-extension CustomAlertController: RxAlertController {
+struct CustomAlertItem: RxAlertItem {
+    static var controllerType: RxAlertController.Type = CustomAlertController.self
     
+    var name: String
+    var avatar: URL?
+}
+
+extension CustomAlertController: RxAlertController {
+
     static func create(title: String?, message: String?) -> Self {
         return self.init(title: title, message: message)
     }
 
-    func setAction(for category: RxAlertCategory) {
+    func setAction(for category: RxAlertCategory, item: RxAlertItem?) {
         switch category {
-        case .single(let onConfirm):
+        case .single(let confirm):
             confirmButton.setTitle("OK", for: .normal)
-            self.onConfirm = onConfirm
+            onConfirm = confirm
             denyButton.isHidden = true
-        case .double(let confirmMessage, let denyMessage, let onConfirm, let onDeny):
-            confirmButton.setTitle(confirmMessage, for: .normal)
-            self.onConfirm = onConfirm
+        case .double(let confirm, let deny):
+            confirmButton.setTitle("Yes", for: .normal)
+            denyButton.setTitle("Cancel", for: .normal)
             denyButton.isHidden = false
-            denyButton.setTitle(denyMessage, for: .normal)
-            self.onDeny = onDeny
+            onConfirm = confirm
+            onDeny = deny
         }
+
+        guard let customAlertItem = item as? CustomAlertItem else {
+            return
+        }
+        avatarImageView.kf.setImage(with: customAlertItem.avatar)
+        nameLabel.text = customAlertItem.name
     }
     
 }
 ```
 
-To show an alert with customzied alert controller, the `controllerType` should be indicated.
+To show an alert with customzied alert controller, the `item` should be indicated.
 
 ```swift
-RxAlert.customTip(
+alert.onNext(.customConfirm(
     title: "Custom Controller",
-    message: message,
+    message: "Custom alert",
+    item: CustomAlertItem(name: "Meng Li", avatar: URL(string: "https://avatars0.githubusercontent.com/u/9463655")),
     onConfirm: nil,
-    controllerType: CustomAlertController.self
-)
+    onDeny: nil
+))
 ```
 
 ### Global Alert
