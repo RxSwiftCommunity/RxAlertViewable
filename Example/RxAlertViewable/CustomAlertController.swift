@@ -9,6 +9,12 @@
 import UIKit
 import RxAlertViewable
 import SnapKit
+import Kingfisher
+
+struct CustomAlertItem: RxAlertItem {
+    var name: String
+    var avatar: URL?
+}
 
 class CustomAlertController: UIViewController {
 
@@ -27,7 +33,22 @@ class CustomAlertController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-
+    
+    private lazy var avatarImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 30
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+    
+    private lazy var nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .white
+        return label
+    }()
+    
     private lazy var confirmButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .lightGray
@@ -60,10 +81,11 @@ class CustomAlertController: UIViewController {
         view.layer.borderColor = UIColor.white.cgColor
         view.addSubview(titleLabel)
         view.addSubview(messageLabel)
+        view.addSubview(avatarImageView)
+        view.addSubview(nameLabel)
         view.addSubview(buttonsView)
         return view
     }()
-
 
     private let alertTitle: String?
     private let message: String?
@@ -98,6 +120,7 @@ class CustomAlertController: UIViewController {
     }
 
     private func createConstraints() {
+        
         frameView.snp.makeConstraints {
             $0.width.equalTo(300)
             $0.center.equalToSuperview()
@@ -113,10 +136,21 @@ class CustomAlertController: UIViewController {
             $0.top.equalTo(titleLabel.snp.bottom).offset(18)
             $0.right.equalToSuperview().offset(-24)
         }
+        
+        avatarImageView.snp.makeConstraints {
+            $0.size.equalTo(60)
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(messageLabel.snp.bottom).offset(20)
+        }
+        
+        nameLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(avatarImageView.snp.bottom).offset(20)
+        }
 
         buttonsView.snp.makeConstraints {
             $0.left.equalToSuperview().offset(24)
-            $0.top.equalTo(messageLabel.snp.bottom).offset(36)
+            $0.top.equalTo(nameLabel.snp.bottom).offset(20)
             $0.right.equalToSuperview().offset(-24)
             $0.bottom.equalToSuperview().offset(-30)
         }
@@ -142,7 +176,7 @@ class CustomAlertController: UIViewController {
 }
 
 extension CustomAlertController: RxAlertController {
-    
+
     static func create(title: String?, message: String?) -> Self {
         return self.init(title: title, message: message)
     }
@@ -160,6 +194,14 @@ extension CustomAlertController: RxAlertController {
             denyButton.setTitle(denyMessage, for: .normal)
             self.onDeny = onDeny
         }
+    }
+    
+    func setItem(_ item: RxAlertItem?) {
+        guard let customAlertItem = item as? CustomAlertItem else {
+            return
+        }
+        avatarImageView.kf.setImage(with: customAlertItem.avatar)
+        nameLabel.text = customAlertItem.name
     }
     
 }

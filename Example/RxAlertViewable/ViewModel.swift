@@ -43,6 +43,7 @@ class ViewModel {
         alert.onNext(.customConfirm(
             title: "Custom Controller",
             message: "Custom alert",
+            item: CustomAlertItem(name: "Meng Li", avatar: URL(string: "https://avatars0.githubusercontent.com/u/9463655")),
             confirmTitle: "OK",
             denyTitle: "Cancel",
             onConfirm: nil,

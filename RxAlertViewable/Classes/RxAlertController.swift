@@ -26,20 +26,14 @@
 
 import UIKit
 
+public protocol RxAlertItem {}
+
 public protocol RxAlertController: UIViewController {
 
     static func create(title: String?, message: String?) -> Self
 
     func setAction(for category: RxAlertCategory)
-    func setImage(urlString: String?)
-}
-
-public extension RxAlertController {
-    
-    func setImage(urlString: String?) {
-        
-    }
-    
+    func setItem(_ item: RxAlertItem?)
 }
 
 extension UIAlertController: RxAlertController {
@@ -63,4 +57,9 @@ extension UIAlertController: RxAlertController {
             })
         }
     }
+    
+    public func setItem(_ item: RxAlertItem?) {
+        
+    }
+    
 }
