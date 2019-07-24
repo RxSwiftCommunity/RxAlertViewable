@@ -46,8 +46,8 @@ extension UIAlertController: RxAlertController {
 
     public func setAction(for category: RxAlertCategory) {
         switch category {
-        case .single(let onConfirm):
-            addAction(UIAlertAction(title: RxAlert.config.ok, style: .cancel) { _ in
+        case .single(let title, let onConfirm):
+            addAction(UIAlertAction(title: title, style: .cancel) { _ in
                 onConfirm?()
             })
         case .double(let comfirmMessage, let denyMessage, let onConfirm, let onDeny):

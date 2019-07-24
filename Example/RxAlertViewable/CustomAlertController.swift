@@ -185,16 +185,16 @@ extension CustomAlertController: RxAlertController {
 
     func setAction(for category: RxAlertCategory) {
         switch category {
-        case .single(let onConfirm):
-            confirmButton.setTitle("OK", for: .normal)
-            self.onConfirm = onConfirm
+        case .single(let confirmTitle, let confirm):
+            confirmButton.setTitle(confirmTitle, for: .normal)
+            onConfirm = confirm
             denyButton.isHidden = true
-        case .double(let confirmMessage, let denyMessage, let onConfirm, let onDeny):
-            confirmButton.setTitle(confirmMessage, for: .normal)
-            self.onConfirm = onConfirm
+        case .double(let confirmTitle, let denyTitle, let confirm, let deny):
+            confirmButton.setTitle(confirmTitle, for: .normal)
+            denyButton.setTitle(denyTitle, for: .normal)
             denyButton.isHidden = false
-            denyButton.setTitle(denyMessage, for: .normal)
-            self.onDeny = onDeny
+            onConfirm = confirm
+            onDeny = deny
         }
     }
     

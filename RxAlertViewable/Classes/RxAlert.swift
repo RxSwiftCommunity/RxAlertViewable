@@ -37,8 +37,16 @@ public struct RxAlertConfig {
     var ok: String
     var tintColor: UIColor?
     
-    public init(tip: String? = nil, confirm: String? = nil, warning: String? = nil, error: String? = nil,
-        yes: String? = nil, no: String? = nil, ok: String? = nil, tintColor: UIColor? = nil) {
+    public init(
+        tip: String? = nil,
+        confirm: String? = nil,
+        warning: String? = nil,
+        error: String? = nil,
+        yes: String? = nil,
+        no: String? = nil,
+        ok: String? = nil,
+        tintColor: UIColor? = nil
+    ) {
         self.tip = tip ?? "Tip"
         self.confirm = confirm ?? "Confirm"
         self.warning = warning ?? "Warning"
@@ -48,12 +56,13 @@ public struct RxAlertConfig {
         self.ok = ok ?? "OK"
         self.tintColor = tintColor
     }
+    
 }
 
 public typealias RxAlertCompletion = (() -> ())?
 
 public enum RxAlertCategory {
-    case single(RxAlertCompletion)
+    case single(title: String, onConfirm: RxAlertCompletion)
     case double(
         confirmTitle: String,
         denyTitle: String,
@@ -99,67 +108,27 @@ public struct RxAlert {
 
 extension RxAlert {
     
-    public static func tip(
-        _ message: String,
-        onConfirm: RxAlertCompletion = nil
-    ) -> RxAlert {
+    public static func tip(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
         return self.init(
             title: config.tip,
             message: message,
-            category: .single(onConfirm)
+            category: .single(title: RxAlert.config.ok, onConfirm: onConfirm)
         )
     }
     
-    public static func customTip(
-        title: String,
-        message: String,
-        item: RxAlertItem? = nil,
-        onConfirm: RxAlertCompletion = nil
-    ) -> RxAlert {
-        return self.init(
-            title: title,
-            message: message,
-            item: item,
-            category: .single(onConfirm)
-        )
-    }
-    
-    public static func customDoubleTip(
-        title: String,
-        message: String,
-        item: RxAlertItem? = nil,
-        confirmTitle: String,
-        denyTitle: String,
-        onConfirm: RxAlertCompletion = nil,
-        onDeny: RxAlertCompletion = nil
-    ) -> RxAlert {
-        return self.init(
-            title: title,
-            message: message,
-            item: item,
-            category: .double(confirmTitle: confirmTitle, denyTitle: denyTitle, onConfirm: onConfirm, onDeny: onDeny)
-        )
-    }
-    
-    public static func warning(
-        _ message: String,
-        onConfirm: RxAlertCompletion = nil
-    ) -> RxAlert {
+    public static func warning(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
         return self.init(
             title: config.warning,
             message: message,
-            category: .single(onConfirm)
+            category: .single(title: RxAlert.config.ok, onConfirm: onConfirm)
         )
     }
     
-    public static func error(
-        _ message: String,
-        onConfirm: RxAlertCompletion = nil
-    ) -> RxAlert {
+    public static func error(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
         return self.init(
             title: config.error,
             message: message,
-            category: .single(onConfirm)
+            category: .single(title: RxAlert.config.ok, onConfirm: onConfirm)
         )
     }
     
@@ -171,7 +140,27 @@ extension RxAlert {
         return self.init(
             title: config.confirm,
             message: message,
-            category: .double(confirmTitle: RxAlert.config.yes, denyTitle: RxAlert.config.no, onConfirm: onConfirm, onDeny: onDeny)
+            category: .double(
+                confirmTitle: RxAlert.config.yes,
+                denyTitle: RxAlert.config.no,
+                onConfirm: onConfirm,
+                onDeny: onDeny
+            )
+        )
+    }
+    
+    public static func customTip(
+        title: String,
+        message: String,
+        item: RxAlertItem? = nil,
+        confirmTitle: String? = nil,
+        onConfirm: RxAlertCompletion = nil
+    ) -> RxAlert {
+        return self.init(
+            title: title,
+            message: message,
+            item: item,
+            category: .single(title: confirmTitle ?? RxAlert.config.ok, onConfirm: onConfirm)
         )
     }
     
@@ -184,13 +173,16 @@ extension RxAlert {
         onConfirm: RxAlertCompletion = nil,
         onDeny: RxAlertCompletion = nil
     ) -> RxAlert {
-        let confirmTitle = confirmTitle ?? RxAlert.config.yes
-        let denyTitle = denyTitle ?? RxAlert.config.no
         return self.init(
             title: title,
             message: message,
             item: item,
-            category: .double(confirmTitle: confirmTitle, denyTitle: denyTitle, onConfirm: onConfirm, onDeny: onDeny)
+            category: .double(
+                confirmTitle: confirmTitle ?? RxAlert.config.yes,
+                denyTitle: denyTitle ?? RxAlert.config.no,
+                onConfirm: onConfirm,
+                onDeny: onDeny
+            )
         )
     }
     
