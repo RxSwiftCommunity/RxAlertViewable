@@ -62,13 +62,8 @@ public struct RxAlertConfig {
 public typealias RxAlertCompletion = (() -> ())?
 
 public enum RxAlertCategory {
-    case single(title: String, onConfirm: RxAlertCompletion)
-    case double(
-        confirmTitle: String,
-        denyTitle: String,
-        onConfirm: RxAlertCompletion,
-        onDeny: RxAlertCompletion
-    )
+    case single(onConfirm: RxAlertCompletion)
+    case double(onConfirm: RxAlertCompletion, onDeny: RxAlertCompletion)
 }
 
 public struct RxAlert {
@@ -96,8 +91,7 @@ public struct RxAlert {
         }
         
         let alertController = controllerType.create(title: title, message: message)
-        alertController.setAction(for: category)
-        alertController.setItem(item)
+        alertController.setAction(for: category, item: item)
         if let tintColor = RxAlert.config.tintColor {
             alertController.view.tintColor = tintColor
         }
@@ -112,7 +106,7 @@ extension RxAlert {
         return self.init(
             title: config.tip,
             message: message,
-            category: .single(title: RxAlert.config.ok, onConfirm: onConfirm)
+            category: .single(onConfirm: onConfirm)
         )
     }
     
@@ -120,7 +114,7 @@ extension RxAlert {
         return self.init(
             title: config.warning,
             message: message,
-            category: .single(title: RxAlert.config.ok, onConfirm: onConfirm)
+            category: .single(onConfirm: onConfirm)
         )
     }
     
@@ -128,7 +122,7 @@ extension RxAlert {
         return self.init(
             title: config.error,
             message: message,
-            category: .single(title: RxAlert.config.ok, onConfirm: onConfirm)
+            category: .single(onConfirm: onConfirm)
         )
     }
     
@@ -140,12 +134,7 @@ extension RxAlert {
         return self.init(
             title: config.confirm,
             message: message,
-            category: .double(
-                confirmTitle: RxAlert.config.yes,
-                denyTitle: RxAlert.config.no,
-                onConfirm: onConfirm,
-                onDeny: onDeny
-            )
+            category: .double(onConfirm: onConfirm, onDeny: onDeny)
         )
     }
     
@@ -153,14 +142,13 @@ extension RxAlert {
         title: String,
         message: String,
         item: RxAlertItem? = nil,
-        confirmTitle: String? = nil,
         onConfirm: RxAlertCompletion = nil
     ) -> RxAlert {
         return self.init(
             title: title,
             message: message,
             item: item,
-            category: .single(title: confirmTitle ?? RxAlert.config.ok, onConfirm: onConfirm)
+            category: .single(onConfirm: onConfirm)
         )
     }
     
@@ -168,8 +156,6 @@ extension RxAlert {
         title: String,
         message: String,
         item: RxAlertItem? = nil,
-        confirmTitle: String? = nil,
-        denyTitle: String? = nil,
         onConfirm: RxAlertCompletion = nil,
         onDeny: RxAlertCompletion = nil
     ) -> RxAlert {
@@ -177,12 +163,7 @@ extension RxAlert {
             title: title,
             message: message,
             item: item,
-            category: .double(
-                confirmTitle: confirmTitle ?? RxAlert.config.yes,
-                denyTitle: denyTitle ?? RxAlert.config.no,
-                onConfirm: onConfirm,
-                onDeny: onDeny
-            )
+            category: .double(onConfirm: onConfirm, onDeny: onDeny)
         )
     }
     

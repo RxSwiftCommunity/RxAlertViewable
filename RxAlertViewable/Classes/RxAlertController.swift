@@ -34,8 +34,14 @@ public protocol RxAlertController: UIViewController {
 
     static func create(title: String?, message: String?) -> Self
 
-    func setAction(for category: RxAlertCategory)
-    func setItem(_ item: RxAlertItem?)
+    func setAction(for category: RxAlertCategory, item: RxAlertItem?)
+}
+
+struct UIAlertItem: RxAlertItem {
+    static let controllerType: RxAlertController.Type = UIAlertController.self
+    
+    var confirmTitle: String
+    var denyTitle: String
 }
 
 extension UIAlertController: RxAlertController {
@@ -44,24 +50,26 @@ extension UIAlertController: RxAlertController {
         return self.init(title: title, message: message, preferredStyle: .alert)
     }
 
-    public func setAction(for category: RxAlertCategory) {
+    public func setAction(for category: RxAlertCategory, item: RxAlertItem?) {
+        var confirmTitle = RxAlert.config.yes
+        var denyTitle = RxAlert.config.no
+        if let alertItem = item as? UIAlertItem {
+            confirmTitle = alertItem.confirmTitle
+            denyTitle = alertItem.denyTitle
+        }
         switch category {
-        case .single(let title, let onConfirm):
+        case .single(let onConfirm):
             addAction(UIAlertAction(title: title, style: .cancel) { _ in
                 onConfirm?()
             })
-        case .double(let comfirmMessage, let denyMessage, let onConfirm, let onDeny):
-            addAction(UIAlertAction(title: comfirmMessage, style: .destructive) { _ in
+        case .double(let onConfirm, let onDeny):
+            addAction(UIAlertAction(title: confirmTitle, style: .destructive) { _ in
                 onConfirm?()
             })
-            addAction(UIAlertAction(title: denyMessage, style: .cancel) { _ in
+            addAction(UIAlertAction(title: denyTitle, style: .cancel) { _ in
                 onDeny?()
             })
         }
-    }
-    
-    public func setItem(_ item: RxAlertItem?) {
-        
     }
     
 }
