@@ -47,8 +47,7 @@ class ViewModel {
             confirmTitle: "OK",
             denyTitle: "Cancel",
             onConfirm: nil,
-            onDeny: nil,
-            controllerType: CustomAlertController.self
+            onDeny: nil
         ))
     }
     

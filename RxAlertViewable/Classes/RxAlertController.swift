@@ -26,7 +26,9 @@
 
 import UIKit
 
-public protocol RxAlertItem {}
+public protocol RxAlertItem {
+    static var controllerType: RxAlertController.Type { get }
+}
 
 public protocol RxAlertController: UIViewController {
 

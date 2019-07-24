@@ -12,6 +12,8 @@ import SnapKit
 import Kingfisher
 
 struct CustomAlertItem: RxAlertItem {
+    static var controllerType: RxAlertController.Type = CustomAlertController.self
+    
     var name: String
     var avatar: URL?
 }
