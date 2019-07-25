@@ -120,7 +120,7 @@ extension RxAlert {
     
     public static func error(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
         return self.init(
-            title: config.ok,
+            title: config.error,
             message: message,
             category: .single(onConfirm: onConfirm)
         )
