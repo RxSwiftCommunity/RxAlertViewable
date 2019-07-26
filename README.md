@@ -56,7 +56,7 @@ To show an alert, just send a singal to `alert`.
 alert.onNext(.tip("Hello"))
 ``` 
 
-### Customized title and message
+### Customized default title, button name and tint color.
 
 Customize your own strings and tint color using the following code.
 
@@ -75,7 +75,7 @@ RxAlert.config = RxAlertConfig(
 
 ### Customized alert controller
 
-RxAlertViewable supports the following customzied alert types.
+RxAlertViewable supports to customize button names and style of the tip and confirm alert.
 
 - ```customTip(title:, message: String, item:, onConfirm:)```
 - ```customConfirm(title: String, message:, item:, onConfirm:, onDeny:)```
