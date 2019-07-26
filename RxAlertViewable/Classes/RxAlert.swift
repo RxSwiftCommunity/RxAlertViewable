@@ -106,6 +106,7 @@ extension RxAlert {
         return self.init(
             title: config.tip,
             message: message,
+            item: UIAlertItem(confirmTitle: config.ok),
             category: .single(onConfirm: onConfirm)
         )
     }
@@ -114,6 +115,7 @@ extension RxAlert {
         return self.init(
             title: config.warning,
             message: message,
+            item: UIAlertItem(confirmTitle: config.ok),
             category: .single(onConfirm: onConfirm)
         )
     }
@@ -122,6 +124,7 @@ extension RxAlert {
         return self.init(
             title: config.error,
             message: message,
+            item: UIAlertItem(confirmTitle: config.ok),
             category: .single(onConfirm: onConfirm)
         )
     }

@@ -38,10 +38,17 @@ public protocol RxAlertController: UIViewController {
 }
 
 struct UIAlertItem: RxAlertItem {
+    
     static let controllerType: RxAlertController.Type = UIAlertController.self
     
     var confirmTitle: String
-    var denyTitle: String
+    var denyTitle: String?
+    
+    init(confirmTitle: String, denyTitle: String? = nil) {
+        self.confirmTitle = confirmTitle
+        self.denyTitle = denyTitle
+    }
+    
 }
 
 extension UIAlertController: RxAlertController {
@@ -55,11 +62,13 @@ extension UIAlertController: RxAlertController {
         var denyTitle = RxAlert.config.no
         if let alertItem = item as? UIAlertItem {
             confirmTitle = alertItem.confirmTitle
-            denyTitle = alertItem.denyTitle
+            if let deny = alertItem.denyTitle {
+                denyTitle = deny
+            }
         }
         switch category {
         case .single(let onConfirm):
-            addAction(UIAlertAction(title: title, style: .cancel) { _ in
+            addAction(UIAlertAction(title: confirmTitle, style: .cancel) { _ in
                 onConfirm?()
             })
         case .double(let onConfirm, let onDeny):
