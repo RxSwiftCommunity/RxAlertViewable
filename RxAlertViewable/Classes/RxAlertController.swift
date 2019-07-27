@@ -37,14 +37,14 @@ public protocol RxAlertController: UIViewController {
     func setAction(for category: RxAlertCategory, item: RxAlertItem?)
 }
 
-struct UIAlertItem: RxAlertItem {
+public struct UIAlertItem: RxAlertItem {
     
-    static let controllerType: RxAlertController.Type = UIAlertController.self
+    public static let controllerType: RxAlertController.Type = UIAlertController.self
     
     var confirmTitle: String
     var denyTitle: String?
     
-    init(confirmTitle: String, denyTitle: String? = nil) {
+    public init(confirmTitle: String, denyTitle: String? = nil) {
         self.confirmTitle = confirmTitle
         self.denyTitle = denyTitle
     }
