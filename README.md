@@ -31,16 +31,18 @@ To use RxAlertViewable, confirm the `RxAlertViewable` protocol in your view cont
 class ViewController: UIViewController, RxAlertViewable {}
 ```
 
-Prepare a singal `alert` in your view model class.
+### Alert
+
+Prepare a PublishSubject `alert` in your view model class.
 
 ```swift
 let alert = PublishSubject<RxAlert>()
 ```
 
-Then, bind it in the view controller class.
+Then, bind it in the view controller class which implemented the protocol `RxAlertViewable`.
 
 ```Swift
-viewModel.tip.bind(to: rx.alert).disposed(by: disposeBag)
+viewModel.alert.bind(to: rx.alert).disposed(by: disposeBag)
 ```
 
 RxAlertViewable supports the following basic alert types.
@@ -55,6 +57,13 @@ To show an alert, just send a singal to `alert`.
 ```swift
 alert.onNext(.tip("Hello"))
 ``` 
+
+or just using the wrapper method like:
+
+```swift
+alert.onNextTip("Hello")
+``` 
+From the version `0.8.4`, using the wrapper methods for RxAlert and RxActionSheet is recomended.
 
 ### Customized default title, button name and tint color.
 
@@ -126,13 +135,13 @@ extension CustomAlertController: RxAlertController {
 To show an alert with customzied alert controller, the `item` should be indicated.
 
 ```swift
-alert.onNext(.customConfirm(
+alert.onNextCustomConfirm(
     title: "Custom Controller",
     message: "Custom alert",
     item: CustomAlertItem(name: "Meng Li", avatar: URL(string: "https://avatars0.githubusercontent.com/u/9463655")),
     onConfirm: nil,
     onDeny: nil
-))
+)
 ```
 
 ### Global Alert
@@ -141,6 +150,38 @@ RxAlertViewable supports to show a global alert view in a new UIWindow instance 
 
 ```swift
 viewModel.globalTip.bind(to: rx.globalAlert).disposed(by: disposeBag)
+```
+
+### Action sheet.
+
+Using action sheet is nearly same as using alert.
+Prepare a PublishSubject `alert` in your view model class.
+
+```swift
+let actionSheet = PublishSubject<RxAlert>()
+```
+
+Then, bind it in the view controller class which implemented the protocol `RxAlertViewable`.
+
+```Swift
+viewModel.actionSheet.bind(to: rx.actionSheet).disposed(by: disposeBag)
+```
+
+To show an action sheet, just send a singal to `actionSheet`.
+**The parameter `sourceView` must be indicated if the action sheet will be shown on iPad devices.**
+Otherwise, the app will be crashed before showing the action sheet.
+
+```swift
+actionSheet.onNextActions(
+    sourceView: view,
+    .default(title: "Default") {
+        print("Default")
+    },
+    .destructive(title: "Destructive") {
+        print("Destructive")
+    },
+    .cancel
+)
 ```
 
 ## Author

@@ -60,12 +60,12 @@ class ViewModel {
     func showActionSheet(for view: UIView) {
         actionSheet.onNextActions(
             sourceView: view,
-            .default(title: "Default", action: {
+            .default(title: "Default") {
                 print("Default")
-            }),
-            .destructive(title: "Destructive", action: {
+            },
+            .destructive(title: "Destructive") {
                 print("Destructive")
-            }),
+            },
             .cancel
         )
     }
