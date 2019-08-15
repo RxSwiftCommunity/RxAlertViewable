@@ -48,7 +48,7 @@ class ViewController: UIViewController, RxAlertViewable {
         button.setTitle("Open Action Sheet", for: .normal)
         button.setTitleColor(.red, for: .normal)
         button.rx.tap.bind { [unowned self] in
-            self.viewModel.showActionSheet()
+            self.viewModel.showActionSheet(for: button)
         }.disposed(by: disposeBag)
         return button
     }()

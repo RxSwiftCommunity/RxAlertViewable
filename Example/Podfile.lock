@@ -1,5 +1,5 @@
 PODS:
-  - Kingfisher (5.7.0)
+  - Kingfisher (5.7.1)
   - RxAlertViewable (0.8.3):
     - RxCocoa (~> 5)
     - RxSwift (~> 5)
@@ -9,7 +9,7 @@ PODS:
   - RxRelay (5.0.0):
     - RxSwift (~> 5)
   - RxSwift (5.0.0)
-  - SnapKit (5.0.0)
+  - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - Kingfisher
@@ -31,12 +31,12 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Kingfisher: c7d211b54f1f30d8060aadab177d52b4349c825b
+  Kingfisher: 176d377ad339113c99ad4980cbae687f807e20fe
   RxAlertViewable: 2fcd1bb96c74706d336615180099f9a609b00503
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
   RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
-  SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
 PODFILE CHECKSUM: b4605b4abcc2e96e810853dd0c68eb98e91ba151
 

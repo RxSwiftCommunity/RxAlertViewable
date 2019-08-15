@@ -57,8 +57,9 @@ class ViewModel {
         }))
     }
     
-    func showActionSheet() {
+    func showActionSheet(for view: UIView) {
         actionSheet.onNext(.actions(
+            sourceView: view,
             .default(title: "Default", action: {
                 print("Default")
             }),

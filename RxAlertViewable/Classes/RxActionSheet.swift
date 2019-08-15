@@ -51,10 +51,11 @@ public struct RxActionSheet {
     
     private var title: String?
     private var message: String?
+    private var sourceView: UIView?
     private var actions: [RxAction]
     
-    public static func actions(_ actions: RxAction...) -> RxActionSheet {
-        return self.init(title: nil, message: nil, actions: actions)
+    public static func actions(sourceView: UIView? = nil, _ actions: RxAction...) -> RxActionSheet {
+        return self.init(title: nil, message: nil, sourceView: sourceView, actions: actions)
     }
     
     public var alertController: UIAlertController {
@@ -79,6 +80,10 @@ public struct RxActionSheet {
         }
         if let tintColor = RxAlert.config.tintColor {
             alertController.view.tintColor = tintColor
+        }
+        if let view = sourceView {
+            alertController.popoverPresentationController?.sourceView = view
+            alertController.popoverPresentationController?.sourceRect = view.bounds
         }
         return alertController
     }
