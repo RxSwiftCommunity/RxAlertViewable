@@ -23,42 +23,42 @@ class ViewModel {
         let message = "Clicked \(clickTimes) time\(clickTimes > 1 ? "s" : "")."
         switch clickTimes % 5 {
         case 1:
-            alert.onNext(.tip(message))
+            alert.onNextTip(message)
         case 2:
-            alert.onNext(.customTip(title: "Custom Tip", message: message))
+            alert.onNextCustomTip(title: "Custom Tip", message: message)
         case 3:
-            alert.onNext(.warning(message))
+            alert.onNextWarning(message)
         case 4:
-            alert.onNext(.error(message))
+            alert.onNextError(message)
         case 0:
-            alert.onNext(.confirm(message, onConfirm: {
+            alert.onNextConfirm(message, onConfirm: {
                 self.showAlert()
-            }))
+            })
         default:
-            alert.onNext(.tip("???"))
+            alert.onNextTip("???")
         }
     }
     
     func showCustomizedAlert() {
-        alert.onNext(.customConfirm(
+        alert.onNextCustomConfirm(
             title: "Custom Controller",
             message: "Custom alert",
             item: CustomAlertItem(name: "Meng Li", avatar: URL(string: "https://avatars0.githubusercontent.com/u/9463655")),
             onConfirm: nil,
             onDeny: nil
-        ))
+        )
     }
     
     func showGlobalAlert() {
-        globalTip.onNext(.confirm("Confirm message.", onConfirm: {
+        globalTip.onNextConfirm("Confirm message.", onConfirm: {
             print("comfirm")
         }, onDeny: {
             print("deny")
-        }))
+        })
     }
     
     func showActionSheet(for view: UIView) {
-        actionSheet.onNext(.actions(
+        actionSheet.onNextActions(
             sourceView: view,
             .default(title: "Default", action: {
                 print("Default")
@@ -67,6 +67,6 @@ class ViewModel {
                 print("Destructive")
             }),
             .cancel
-        ))
+        )
     }
 }

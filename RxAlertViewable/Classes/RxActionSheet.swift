@@ -54,10 +54,6 @@ public struct RxActionSheet {
     private var sourceView: UIView?
     private var actions: [RxAction]
     
-    public static func actions(sourceView: UIView? = nil, _ actions: RxAction...) -> RxActionSheet {
-        return self.init(title: nil, message: nil, sourceView: sourceView, actions: actions)
-    }
-    
     public var alertController: UIAlertController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         actions.map {
@@ -86,6 +82,18 @@ public struct RxActionSheet {
             alertController.popoverPresentationController?.sourceRect = view.bounds
         }
         return alertController
+    }
+    
+}
+
+extension RxActionSheet {
+    
+    public static func actions(sourceView: UIView? = nil, actions: [RxAction]) -> RxActionSheet {
+        return self.init(title: nil, message: nil, sourceView: sourceView, actions: actions)
+    }
+    
+    public static func actions(sourceView: UIView? = nil, _ actions: RxAction...) -> RxActionSheet {
+        return self.actions(sourceView: sourceView, actions: actions)
     }
     
 }
