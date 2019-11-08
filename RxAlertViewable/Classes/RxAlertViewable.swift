@@ -45,7 +45,7 @@ extension RxAlertViewable where Self: AnyObject {
     public func showGlobalAlert(_ alert: RxAlert) {
         let alertWindow = UIWindow(frame: UIScreen.main.bounds)
         alertWindow.rootViewController = UIViewController()
-        alertWindow.windowLevel = UIWindow.Level.alert + 1;
+        alertWindow.windowLevel = UIWindow.Level.alert + 1
         alertWindow.makeKeyAndVisible()
         alertWindow.rootViewController?.present(alert.alertController, animated: true, completion: nil)
     }
