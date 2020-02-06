@@ -158,7 +158,7 @@ Using action sheet is nearly same as using alert.
 Prepare a PublishSubject `alert` in your view model class.
 
 ```swift
-let actionSheet = PublishSubject<RxAlert>()
+let actionSheet = PublishSubject<RxActionSheet>()
 ```
 
 Then, bind it in the view controller class which implemented the protocol `RxAlertViewable`.
