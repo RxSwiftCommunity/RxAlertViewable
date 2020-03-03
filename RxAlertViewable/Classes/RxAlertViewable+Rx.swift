@@ -33,13 +33,13 @@ import UIKit
 extension Reactive where Base: UIViewController, Base: RxAlertViewable {
     
     public var alert: Binder<RxAlert> {
-        return Binder(self.base) { viewController, alert in
+        Binder(base) { viewController, alert in
             viewController.showAlert(alert)
         }
     }
     
     public var actionSheet: Binder<RxActionSheet> {
-        return Binder(self.base) { viewControlelr, actionSheet in
+        Binder(base) { viewControlelr, actionSheet in
             viewControlelr.showActionSheet(actionSheet)
         }
     }
@@ -49,7 +49,7 @@ extension Reactive where Base: UIViewController, Base: RxAlertViewable {
 extension Reactive where Base: AnyObject, Base: RxAlertViewable {
     
     public var globalAlert: Binder<RxAlert> {
-        return Binder(self.base) { object, alert in
+        Binder(base) { object, alert in
             object.showGlobalAlert(alert)
         }
     }
