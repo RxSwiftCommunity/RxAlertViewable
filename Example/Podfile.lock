@@ -2,7 +2,7 @@ PODS:
   - Kingfisher (5.13.4):
     - Kingfisher/Core (= 5.13.4)
   - Kingfisher/Core (5.13.4)
-  - RxAlertViewable (0.8.4):
+  - RxAlertViewable (0.9):
     - RxCocoa (~> 5)
     - RxSwift (~> 5)
   - RxCocoa (5.1.1):
@@ -34,7 +34,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Kingfisher: d2279a7abece3c7f25a80cd2b7f363ca5cf3f44c
-  RxAlertViewable: 52132268f3de07d7078bb87301c9c69fe5ce1f3b
+  RxAlertViewable: 82a1ce0033c67215de9212e6e478b3935bd68165
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178

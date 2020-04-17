@@ -7,7 +7,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RxAlertViewable'
-  s.version          = '0.8.4'
+  s.version          = '0.9'
   s.summary          = 'A simple alert library with RxSwift supported.'
 
   s.description      = <<-DESC
