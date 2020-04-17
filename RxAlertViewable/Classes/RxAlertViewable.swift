@@ -41,11 +41,30 @@ extension RxAlertViewable where Self: UIViewController {
 extension RxAlertViewable where Self: AnyObject {
     
     public func showGlobalAlert(_ alert: RxAlert) {
+        let viewController = UIViewController()
         let alertWindow = UIWindow(frame: UIScreen.main.bounds)
-        alertWindow.rootViewController = UIViewController()
+        alertWindow.rootViewController = viewController
         alertWindow.windowLevel = UIWindow.Level.alert + 1
         alertWindow.makeKeyAndVisible()
-        alertWindow.rootViewController?.present(alert.alertController, animated: true, completion: nil)
+        GlobalWindowHolder.shared.alertWindow = alertWindow
+        viewController.present(alert.alertController, animated: true)
     }
     
+}
+
+class GlobalWindowHolder {
+    static let shared = GlobalWindowHolder()
+    
+    private var timer: Timer?
+    
+    var alertWindow: UIWindow? {
+        didSet {
+            timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+                if self.alertWindow?.rootViewController?.presentedViewController == nil {
+                    self.timer?.invalidate()
+                    self.alertWindow = nil
+                }
+            }
+        }
+    }
 }

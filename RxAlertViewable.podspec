@@ -19,7 +19,7 @@ RxAlertViewable is created for developing the MVVM app with RxSwift. It supports
   s.author           = { 'lm2343635' => 'lm2343635@126.com' }
   s.source           = { :git => 'https://github.com/lm2343635/RxAlertViewable.git', :tag => s.version.to_s }
   
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '10.0'
   s.swift_version = '5.0'
   s.source_files = 'RxAlertViewable/Classes/**/*'
   s.dependency 'RxSwift', '~> 5'
