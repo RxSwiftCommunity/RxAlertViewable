@@ -24,8 +24,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
-
 public struct RxActionSheetConfig {
     
     var cancel: String
@@ -89,11 +87,11 @@ public struct RxActionSheet {
 extension RxActionSheet {
     
     public static func actions(sourceView: UIView? = nil, actions: [RxAction]) -> RxActionSheet {
-        return self.init(title: nil, message: nil, sourceView: sourceView, actions: actions)
+        self.init(title: nil, message: nil, sourceView: sourceView, actions: actions)
     }
     
     public static func actions(sourceView: UIView? = nil, _ actions: RxAction...) -> RxActionSheet {
-        return self.actions(sourceView: sourceView, actions: actions)
+        self.actions(sourceView: sourceView, actions: actions)
     }
     
 }

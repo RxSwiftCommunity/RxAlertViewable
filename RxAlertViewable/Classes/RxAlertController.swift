@@ -24,8 +24,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
-
 public protocol RxAlertItem {
     static var controllerType: RxAlertController.Type { get }
 }
@@ -54,7 +52,7 @@ public struct UIAlertItem: RxAlertItem {
 extension UIAlertController: RxAlertController {
 
     public static func create(title: String?, message: String?) -> Self {
-        return self.init(title: title, message: message, preferredStyle: .alert)
+        self.init(title: title, message: message, preferredStyle: .alert)
     }
 
     public func setAction(for category: RxAlertCategory, item: RxAlertItem?) {

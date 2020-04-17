@@ -24,8 +24,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
-
 public struct RxAlertConfig {
     
     var tip: String
@@ -103,7 +101,7 @@ public struct RxAlert {
 extension RxAlert {
     
     public static func tip(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
-        return self.init(
+        self.init(
             title: config.tip,
             message: message,
             item: UIAlertItem(confirmTitle: config.ok),
@@ -112,7 +110,7 @@ extension RxAlert {
     }
     
     public static func warning(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
-        return self.init(
+        self.init(
             title: config.warning,
             message: message,
             item: UIAlertItem(confirmTitle: config.ok),
@@ -121,7 +119,7 @@ extension RxAlert {
     }
     
     public static func error(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
-        return self.init(
+        self.init(
             title: config.error,
             message: message,
             item: UIAlertItem(confirmTitle: config.ok),
@@ -134,7 +132,7 @@ extension RxAlert {
         onConfirm: RxAlertCompletion = nil,
         onDeny: RxAlertCompletion = nil
     ) -> RxAlert {
-        return self.init(
+        self.init(
             title: config.confirm,
             message: message,
             category: .double(onConfirm: onConfirm, onDeny: onDeny)
@@ -147,7 +145,7 @@ extension RxAlert {
         item: RxAlertItem? = nil,
         onConfirm: RxAlertCompletion = nil
     ) -> RxAlert {
-        return self.init(
+        self.init(
             title: title,
             message: message,
             item: item,
@@ -162,7 +160,7 @@ extension RxAlert {
         onConfirm: RxAlertCompletion = nil,
         onDeny: RxAlertCompletion = nil
     ) -> RxAlert {
-        return self.init(
+        self.init(
             title: title,
             message: message,
             item: item,
