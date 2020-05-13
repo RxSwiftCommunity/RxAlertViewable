@@ -1,8 +1,8 @@
 PODS:
-  - Kingfisher (5.13.4):
-    - Kingfisher/Core (= 5.13.4)
-  - Kingfisher/Core (5.13.4)
-  - RxAlertViewable (0.9):
+  - Kingfisher (5.14.0):
+    - Kingfisher/Core (= 5.14.0)
+  - Kingfisher/Core (5.14.0)
+  - RxAlertViewable (0.9.1):
     - RxCocoa (~> 5)
     - RxSwift (~> 5)
   - RxCocoa (5.1.1):
@@ -33,8 +33,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Kingfisher: d2279a7abece3c7f25a80cd2b7f363ca5cf3f44c
-  RxAlertViewable: 82a1ce0033c67215de9212e6e478b3935bd68165
+  Kingfisher: 7b64389a43139c903ec434788344c288217c792d
+  RxAlertViewable: 12fdb641d4e077813f21adb95c15d3eb9b57f75f
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
