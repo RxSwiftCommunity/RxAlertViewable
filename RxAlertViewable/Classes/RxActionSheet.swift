@@ -79,6 +79,15 @@ public struct RxActionSheet {
             alertController.popoverPresentationController?.sourceView = view
             alertController.popoverPresentationController?.sourceRect = view.bounds
         }
+        // The constraints layout warning is a bug caused by iOS from 12.2.
+        // We can just remove it, until Apple has fixed the bug.
+        alertController.view.subviews.forEach { subview in
+            subview.constraints.filter {
+                $0.debugDescription.contains("width == - 16")
+            }.forEach {
+                subview.removeConstraint($0)
+            }
+        }
         return alertController
     }
     
