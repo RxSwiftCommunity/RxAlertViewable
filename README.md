@@ -174,6 +174,8 @@ Otherwise, the app will be crashed before showing the action sheet.
 ```swift
 actionSheet.onNextActions(
     sourceView: view,
+    title: "Test title",
+    message: "Test message",
     .default(title: "Default") {
         print("Default")
     },
