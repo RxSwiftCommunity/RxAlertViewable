@@ -71,8 +71,22 @@ extension ObserverType where Element == RxAlert {
 
 extension ObserverType where Element == RxActionSheet {
     
-    public func onNextActions(sourceView: UIView? = nil, _ actions: RxAction...) {
-        onNext(.actions(sourceView: sourceView, actions: actions))
+    public func onNextActions(
+        sourceView: UIView? = nil,
+        title: String? = nil,
+        message: String? = nil,
+        _ actions: RxAction...
+    ) {
+        onNext(.actions(sourceView: sourceView, title: title, message: message, actions: actions))
+    }
+    
+    public func onNextActions(
+        sourceView: UIView? = nil,
+        title: String? = nil,
+        message: String? = nil,
+        actions: [RxAction]
+    ) {
+        onNext(.actions(sourceView: sourceView, title: title, message: message, actions: actions))
     }
     
 }

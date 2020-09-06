@@ -95,12 +95,22 @@ public struct RxActionSheet {
 
 extension RxActionSheet {
     
-    public static func actions(sourceView: UIView? = nil, actions: [RxAction]) -> RxActionSheet {
-        self.init(title: nil, message: nil, sourceView: sourceView, actions: actions)
+    public static func actions(
+        sourceView: UIView? = nil,
+        title: String? = nil,
+        message: String? = nil,
+        actions: [RxAction]
+    ) -> RxActionSheet {
+        self.init(title: title, message: message, sourceView: sourceView, actions: actions)
     }
     
-    public static func actions(sourceView: UIView? = nil, _ actions: RxAction...) -> RxActionSheet {
-        self.actions(sourceView: sourceView, actions: actions)
+    public static func actions(
+        sourceView: UIView? = nil,
+        title: String? = nil,
+        message: String? = nil,
+        _ actions: RxAction...
+    ) -> RxActionSheet {
+        self.init(title: title, message: message, sourceView: sourceView, actions: actions)
     }
     
 }
