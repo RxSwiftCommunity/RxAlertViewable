@@ -60,6 +60,8 @@ class ViewModel {
     func showActionSheet(for view: UIView) {
         actionSheet.onNextActions(
             sourceView: view,
+            title: "Test title",
+            message: "Test message",
             .default(title: "Default") {
                 print("Default")
             },
