@@ -24,39 +24,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-public struct RxAlertConfig {
-    
-    var tip: String
-    var confirm: String
-    var warning: String
-    var error: String
-    var yes: String
-    var no: String
-    var ok: String
-    var tintColor: UIColor?
-    
-    public init(
-        tip: String? = nil,
-        confirm: String? = nil,
-        warning: String? = nil,
-        error: String? = nil,
-        yes: String? = nil,
-        no: String? = nil,
-        ok: String? = nil,
-        tintColor: UIColor? = nil
-    ) {
-        self.tip = tip ?? "Tip"
-        self.confirm = confirm ?? "Confirm"
-        self.warning = warning ?? "Warning"
-        self.error = error ?? "Error"
-        self.yes = yes ?? "Yes"
-        self.no = no ?? "No"
-        self.ok = ok ?? "OK"
-        self.tintColor = tintColor
-    }
-    
-}
-
 public typealias RxAlertCompletion = (() -> ())?
 
 public enum RxAlertCategory {
@@ -66,8 +33,6 @@ public enum RxAlertCategory {
 
 public struct RxAlert {
     
-    public static var config = RxAlertConfig()
-
     private var title: String
     private var message: String
     private var item: RxAlertItem?
@@ -90,7 +55,7 @@ public struct RxAlert {
         
         let alertController = controllerType.create(title: title, message: message)
         alertController.setAction(for: category, item: item)
-        if let tintColor = RxAlert.config.tintColor {
+        if let tintColor = RxAlertConfig.current.tintColor {
             alertController.view.tintColor = tintColor
         }
         return alertController
@@ -102,27 +67,27 @@ extension RxAlert {
     
     public static func tip(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
         self.init(
-            title: config.tip,
+            title: RxAlertConfig.current.tip,
             message: message,
-            item: UIAlertItem(confirmTitle: config.ok),
+            item: UIAlertItem(confirmTitle: RxAlertConfig.current.ok),
             category: .single(onConfirm: onConfirm)
         )
     }
     
     public static func warning(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
         self.init(
-            title: config.warning,
+            title: RxAlertConfig.current.warning,
             message: message,
-            item: UIAlertItem(confirmTitle: config.ok),
+            item: UIAlertItem(confirmTitle: RxAlertConfig.current.ok),
             category: .single(onConfirm: onConfirm)
         )
     }
     
     public static func error(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
         self.init(
-            title: config.error,
+            title: RxAlertConfig.current.error,
             message: message,
-            item: UIAlertItem(confirmTitle: config.ok),
+            item: UIAlertItem(confirmTitle: RxAlertConfig.current.ok),
             category: .single(onConfirm: onConfirm)
         )
     }
@@ -133,7 +98,7 @@ extension RxAlert {
         onDeny: RxAlertCompletion = nil
     ) -> RxAlert {
         self.init(
-            title: config.confirm,
+            title: RxAlertConfig.current.confirm,
             message: message,
             category: .double(onConfirm: onConfirm, onDeny: onDeny)
         )
