@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        RxAlert.config = RxAlertConfig(
+        RxAlertConfig.current = RxAlertConfig(
             tip: "My Tip",
             confirm: "My Confirm",
             warning: "My Warning",
@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             yes: "My Yes",
             no: "My No",
             ok: "My OK",
+            cancel: "My Cancel",
             tintColor: .blue
         )
         

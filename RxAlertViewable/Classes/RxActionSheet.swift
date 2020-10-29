@@ -30,7 +30,7 @@ public struct RxActionSheetConfig {
     var tintColor: UIColor?
     
     public init(cancel: String? = nil, tintColor: UIColor? = nil) {
-        self.cancel = cancel ?? "Cancel"
+        self.cancel = cancel ?? RxAlertConfig.current.cancel
         self.tintColor = tintColor
     }
     
@@ -72,7 +72,7 @@ public struct RxActionSheet {
         }.forEach {
             alertController.addAction($0)
         }
-        if let tintColor = RxAlert.config.tintColor {
+        if let tintColor = RxAlertConfig.current.tintColor {
             alertController.view.tintColor = tintColor
         }
         if let view = sourceView {

@@ -56,8 +56,8 @@ extension UIAlertController: RxAlertController {
     }
 
     public func setAction(for category: RxAlertCategory, item: RxAlertItem?) {
-        var confirmTitle = RxAlert.config.yes
-        var denyTitle = RxAlert.config.no
+        var confirmTitle = RxAlertConfig.current.yes
+        var denyTitle = RxAlertConfig.current.no
         if let alertItem = item as? UIAlertItem {
             confirmTitle = alertItem.confirmTitle
             if let deny = alertItem.denyTitle {
