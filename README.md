@@ -70,7 +70,7 @@ From the version `0.8.4`, using the wrapper methods for RxAlert and RxActionShee
 Customize your own strings and tint color using the following code.
 
 ```swift
-RxAlert.config = RxAlertConfig(
+RxAlertConfig.current = RxAlertConfig(
     tip: "My Tip",
     confirm: "My Confirm",
     warning: "My Warning",
@@ -78,6 +78,7 @@ RxAlert.config = RxAlertConfig(
     yes: "My Yes",
     no: "My No",
     ok: "My OK",
+    cancel: "My Cancel",
     tintColor: .blue
 )
 ```
@@ -86,8 +87,9 @@ RxAlert.config = RxAlertConfig(
 
 RxAlertViewable supports to customize button names and style of the tip and confirm alert.
 
-- ```customTip(title:, message: String, item:, onConfirm:)```
-- ```customConfirm(title: String, message:, item:, onConfirm:, onDeny:)```
+- ```customTip(title:, message:, item:, onConfirm:)```
+- ```customConfirm(title:, message:, item:, onConfirm:, onDeny:)```
+- ```customConfirm(title:, message:, confirmTitle:, denyTitle:, onConfirm:, onDeny:)```
 
 To use a customized alert, a data type which implements the `RxAlertItem` protocol, 
 and a view controller which implements the `RxAlertController` protocol show be prepared.
