@@ -66,6 +66,18 @@ extension ObserverType where Element == RxAlert {
     ) {
         onNext(.customConfirm(title: title, message: message, item: item, onConfirm: onConfirm, onDeny: onDeny))
     }
+    
+    public func onNextCustomConfirm(
+        title: String,
+        message: String,
+        confirmTitle: String,
+        denyTitle: String? = nil,
+        onConfirm: RxAlertCompletion = nil,
+        onDeny: RxAlertCompletion = nil
+    ) {
+        let item = UIAlertItem(confirmTitle: confirmTitle, denyTitle: denyTitle)
+        onNext(.customConfirm(title: title, message: message, item: item, onConfirm: onConfirm, onDeny: onDeny))
+    }
         
 }
 
