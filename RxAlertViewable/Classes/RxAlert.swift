@@ -29,6 +29,7 @@ public typealias RxAlertCompletion = (() -> ())?
 public enum RxAlertCategory {
     case single(onConfirm: RxAlertCompletion)
     case double(onConfirm: RxAlertCompletion, onDeny: RxAlertCompletion)
+    case multiple(actions: [RxAction])
 }
 
 public struct RxAlert {
@@ -66,7 +67,7 @@ public struct RxAlert {
 extension RxAlert {
     
     public static func tip(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
-        self.init(
+        return self.init(
             title: RxAlertConfig.current.tip,
             message: message,
             item: UIAlertItem(confirmTitle: RxAlertConfig.current.ok),
@@ -75,7 +76,7 @@ extension RxAlert {
     }
     
     public static func warning(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
-        self.init(
+        return self.init(
             title: RxAlertConfig.current.warning,
             message: message,
             item: UIAlertItem(confirmTitle: RxAlertConfig.current.ok),
@@ -84,7 +85,7 @@ extension RxAlert {
     }
     
     public static func error(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
-        self.init(
+        return self.init(
             title: RxAlertConfig.current.error,
             message: message,
             item: UIAlertItem(confirmTitle: RxAlertConfig.current.ok),
@@ -97,7 +98,7 @@ extension RxAlert {
         onConfirm: RxAlertCompletion = nil,
         onDeny: RxAlertCompletion = nil
     ) -> RxAlert {
-        self.init(
+        return self.init(
             title: RxAlertConfig.current.confirm,
             message: message,
             category: .double(onConfirm: onConfirm, onDeny: onDeny)
@@ -110,7 +111,7 @@ extension RxAlert {
         item: RxAlertItem? = nil,
         onConfirm: RxAlertCompletion = nil
     ) -> RxAlert {
-        self.init(
+        return self.init(
             title: title,
             message: message,
             item: item,
@@ -125,12 +126,20 @@ extension RxAlert {
         onConfirm: RxAlertCompletion = nil,
         onDeny: RxAlertCompletion = nil
     ) -> RxAlert {
-        self.init(
+        return self.init(
             title: title,
             message: message,
             item: item,
             category: .double(onConfirm: onConfirm, onDeny: onDeny)
         )
+    }
+    
+    public static func multiple(
+        title: String,
+        message: String,
+        actions: [RxAction]
+    ) -> RxAlert {
+        return self.init(title: title, message: message, category: .multiple(actions: actions))
     }
     
 }

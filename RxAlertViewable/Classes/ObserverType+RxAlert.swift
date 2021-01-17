@@ -78,6 +78,14 @@ extension ObserverType where Element == RxAlert {
         let item = UIAlertItem(confirmTitle: confirmTitle, denyTitle: denyTitle)
         onNext(.customConfirm(title: title, message: message, item: item, onConfirm: onConfirm, onDeny: onDeny))
     }
+    
+    public func onNextMultiple(title: String, message: String, actions: [RxAction]) {
+        onNext(.multiple(title: title, message: message, actions: actions))
+    }
+    
+    public func onNextMultiple(title: String, message: String, _ actions: RxAction...) {
+        onNext(.multiple(title: title, message: message, actions: actions))
+    }
         
 }
 

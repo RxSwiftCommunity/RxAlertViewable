@@ -23,6 +23,16 @@ class ViewController: UIViewController, RxAlertViewable {
         return button
     }()
     
+    private lazy var multipleAlertButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Open Multiple Alert View", for: .normal)
+        button.setTitleColor(.orange, for: .normal)
+        button.rx.tap.bind { [unowned self] in
+            self.viewModel.showMultipleAlert()
+        }.disposed(by: disposeBag)
+        return button
+    }()
+    
     private lazy var customizedAlertButton: UIButton = {
         let button = UIButton()
         button.setTitle("Open Customized Alert View", for: .normal)
@@ -70,6 +80,7 @@ class ViewController: UIViewController, RxAlertViewable {
         
         view.backgroundColor = .white
         view.addSubview(alertButton)
+        view.addSubview(multipleAlertButton)
         view.addSubview(customizedAlertButton)
         view.addSubview(globalAlertButton)
         view.addSubview(actionSheetButton)
@@ -83,6 +94,11 @@ class ViewController: UIViewController, RxAlertViewable {
     private func createConstraints() {
         
         alertButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(multipleAlertButton.snp.top).offset(-20)
+        }
+        
+        multipleAlertButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.bottom.equalTo(customizedAlertButton.snp.top).offset(-20)
         }

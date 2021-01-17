@@ -39,6 +39,20 @@ class ViewModel {
         }
     }
     
+    func showMultipleAlert() {
+        alert.onNextMultiple(
+            title: "Multiple",
+            message: "Multiple actions alert",
+            .destructive(title: "destructive") {
+                self.alert.onNextTip("destructive")
+            },
+            .default(title: "default") {
+                self.alert.onNextTip("default")
+            },
+            .customCancel(title: "customCancel")
+        )
+    }
+    
     func showCustomizedAlert() {
         alert.onNextCustomConfirm(
             title: "Custom Controller",

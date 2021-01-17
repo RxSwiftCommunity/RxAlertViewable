@@ -195,6 +195,8 @@ extension CustomAlertController: RxAlertController {
             denyButton.isHidden = false
             onConfirm = confirm
             onDeny = deny
+        case .multiple(_):
+            break
         }
 
         guard let customAlertItem = item as? CustomAlertItem else {
