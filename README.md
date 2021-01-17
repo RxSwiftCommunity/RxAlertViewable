@@ -65,6 +65,22 @@ alert.onNextTip("Hello")
 ``` 
 From the version `0.8.4`, using the wrapper methods for RxAlert and RxActionSheet is recomended.
 
+From the version `1.1`, alert with multiple actions was supported.
+
+```swift
+alert.onNextMultiple(
+    title: "Multiple",
+    message: "Multiple actions alert",
+    .destructive(title: "destructive") {
+        self.alert.onNextTip("destructive")
+    },
+    .default(title: "default") {
+        self.alert.onNextTip("default")
+    },
+    .customCancel(title: "customCancel")
+)
+```
+
 ### Customized default title, button name and tint color.
 
 Customize your own strings and tint color using the following code.
