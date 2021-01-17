@@ -29,6 +29,7 @@ public typealias RxAlertCompletion = (() -> ())?
 public enum RxAlertCategory {
     case single(onConfirm: RxAlertCompletion)
     case double(onConfirm: RxAlertCompletion, onDeny: RxAlertCompletion)
+    case custom(actions: [UIAlertAction])
 }
 
 public struct RxAlert {
