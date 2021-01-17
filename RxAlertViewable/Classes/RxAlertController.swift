@@ -76,9 +76,9 @@ extension UIAlertController: RxAlertController {
             addAction(UIAlertAction(title: denyTitle, style: .cancel) { _ in
                 onDeny?()
             })
-        case .custom(let actions):
+        case .multiple(let actions):
             actions.forEach {
-                addAction($0)
+                addAction($0.alertAction)
             }
         }
     }

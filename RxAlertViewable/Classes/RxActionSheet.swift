@@ -25,7 +25,6 @@
 // THE SOFTWARE.
 
 public struct RxActionSheetConfig {
-    
     var cancel: String
     var tintColor: UIColor?
     
@@ -33,7 +32,6 @@ public struct RxActionSheetConfig {
         self.cancel = cancel ?? RxAlertConfig.current.cancel
         self.tintColor = tintColor
     }
-    
 }
 
 public enum RxAction {
@@ -41,6 +39,23 @@ public enum RxAction {
     case destructive(title: String, action: RxAlertCompletion)
     case customCancel(title: String)
     case cancel
+    
+    var alertAction: UIAlertAction {
+        switch self {
+        case .default(let title, let action):
+            return UIAlertAction(title: title, style: .default) { _ in
+                action?()
+            }
+        case .destructive(let title, let action):
+            return UIAlertAction(title: title, style: .destructive) { _ in
+                action?()
+            }
+        case .customCancel(let title):
+            return UIAlertAction(title: title, style: .cancel)
+        case .cancel:
+            return UIAlertAction(title: RxActionSheet.config.cancel, style: .cancel)
+        }
+    }
 }
 
 public struct RxActionSheet {
@@ -54,23 +69,8 @@ public struct RxActionSheet {
     
     public var alertController: UIAlertController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-        actions.map {
-            switch $0 {
-            case .default(let title, let action):
-                return UIAlertAction(title: title, style: .default) { _ in
-                    action?()
-                }
-            case .destructive(let title, let action):
-                return UIAlertAction(title: title, style: .destructive) { _ in
-                    action?()
-                }
-            case .customCancel(let title):
-                return UIAlertAction(title: title, style: .cancel)
-            case .cancel:
-                return UIAlertAction(title: RxActionSheet.config.cancel, style: .cancel)
-            }
-        }.forEach {
-            alertController.addAction($0)
+        actions.forEach {
+            alertController.addAction($0.alertAction)
         }
         if let tintColor = RxAlertConfig.current.tintColor {
             alertController.view.tintColor = tintColor
