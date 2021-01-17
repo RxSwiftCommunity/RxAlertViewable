@@ -34,30 +34,6 @@ public struct RxActionSheetConfig {
     }
 }
 
-public enum RxAction {
-    case `default`(title: String, action: RxAlertCompletion)
-    case destructive(title: String, action: RxAlertCompletion)
-    case customCancel(title: String)
-    case cancel
-    
-    var alertAction: UIAlertAction {
-        switch self {
-        case .default(let title, let action):
-            return UIAlertAction(title: title, style: .default) { _ in
-                action?()
-            }
-        case .destructive(let title, let action):
-            return UIAlertAction(title: title, style: .destructive) { _ in
-                action?()
-            }
-        case .customCancel(let title):
-            return UIAlertAction(title: title, style: .cancel)
-        case .cancel:
-            return UIAlertAction(title: RxActionSheet.config.cancel, style: .cancel)
-        }
-    }
-}
-
 public struct RxActionSheet {
     
     public static var config = RxActionSheetConfig()
