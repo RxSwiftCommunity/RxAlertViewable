@@ -63,6 +63,16 @@ class ViewController: UIViewController, RxAlertViewable {
         return button
     }()
     
+    private lazy var inputButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Open Input AlertView", for: .normal)
+        button.setTitleColor(.red, for: .normal)
+        button.rx.tap.bind { [unowned self] in
+            self.viewModel.showInputAlertView()
+        }.disposed(by: disposeBag)
+        return button
+    }()
+    
     private let viewModel: ViewModel
     private let disposeBag = DisposeBag()
     
@@ -84,6 +94,7 @@ class ViewController: UIViewController, RxAlertViewable {
         view.addSubview(customizedAlertButton)
         view.addSubview(globalAlertButton)
         view.addSubview(actionSheetButton)
+        view.addSubview(inputButton)
         createConstraints()
         
         viewModel.alert.bind(to: rx.alert).disposed(by: disposeBag)
@@ -117,6 +128,10 @@ class ViewController: UIViewController, RxAlertViewable {
             $0.top.equalTo(globalAlertButton.snp.bottom).offset(20)
         }
         
+        inputButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(actionSheetButton.snp.bottom).offset(20)
+        }
     }
     
 }
