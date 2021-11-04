@@ -36,10 +36,16 @@ public struct RxAlert {
     
     private var title: String
     private var message: String
+    
     private var item: RxAlertItem?
     private var category: RxAlertCategory
     
-    init(title: String, message: String, item: RxAlertItem? = nil, category: RxAlertCategory) {
+    init(
+        title: String,
+        message: String,
+        item: RxAlertItem? = nil,
+        category: RxAlertCategory
+    ) {
         self.title = title
         self.message = message
         self.item = item
@@ -66,29 +72,50 @@ public struct RxAlert {
 
 extension RxAlert {
     
-    public static func tip(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
+    public static func tip(
+        _ message: String,
+        inputs: [RxAlertInput] = [],
+        onConfirm: RxAlertCompletion = nil
+    ) -> RxAlert {
         return self.init(
             title: RxAlertConfig.current.tip,
             message: message,
-            item: UIAlertItem(confirmTitle: RxAlertConfig.current.ok),
+            item: UIAlertItem(
+                inputs: inputs,
+                confirmTitle: RxAlertConfig.current.ok
+            ),
             category: .single(onConfirm: onConfirm)
         )
     }
     
-    public static func warning(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
+    public static func warning(
+        _ message: String,
+        inputs: [RxAlertInput] = [],
+        onConfirm: RxAlertCompletion = nil
+    ) -> RxAlert {
         return self.init(
             title: RxAlertConfig.current.warning,
             message: message,
-            item: UIAlertItem(confirmTitle: RxAlertConfig.current.ok),
+            item: UIAlertItem(
+                inputs: inputs,
+                confirmTitle: RxAlertConfig.current.ok
+            ),
             category: .single(onConfirm: onConfirm)
         )
     }
     
-    public static func error(_ message: String, onConfirm: RxAlertCompletion = nil) -> RxAlert {
+    public static func error(
+        _ message: String,
+        inputs: [RxAlertInput] = [],
+        onConfirm: RxAlertCompletion = nil
+    ) -> RxAlert {
         return self.init(
             title: RxAlertConfig.current.error,
             message: message,
-            item: UIAlertItem(confirmTitle: RxAlertConfig.current.ok),
+            item: UIAlertItem(
+                inputs: inputs,
+                confirmTitle: RxAlertConfig.current.ok
+            ),
             category: .single(onConfirm: onConfirm)
         )
     }

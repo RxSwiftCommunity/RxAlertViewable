@@ -15,6 +15,7 @@ class ViewModel {
     let alert = PublishSubject<RxAlert>()
     let globalTip = PublishSubject<RxAlert>()
     let actionSheet = PublishSubject<RxActionSheet>()
+    let disposeBag = DisposeBag()
     
     private var clickTimes = 0
     
@@ -83,6 +84,29 @@ class ViewModel {
                 print("Destructive")
             },
             .cancel
+        )
+    }
+    
+    private let textRealy = BehaviorRelay<String?>(value: nil)
+    
+    func showInputAlertView() {
+        
+        alert.onNextTip(
+            "My Input AlertView",
+            inputs: [
+                RxAlertInput(
+                    placeholder: "My placeholder",
+                    text: "My text",
+                    textAlignment: .center,
+                    onTextChanged: RxAlertInput.OnTextChanged(
+                        text: textRealy,
+                        disposeBag: disposeBag
+                    )
+                )
+            ],
+            onConfirm: { [weak self] in
+                self?.alert.onNextTip(self?.textRealy.value ?? "")
+            }
         )
     }
 }

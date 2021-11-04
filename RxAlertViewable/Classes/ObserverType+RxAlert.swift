@@ -28,8 +28,12 @@ import RxSwift
 
 extension ObserverType where Element == RxAlert {
     
-    public func onNextTip(_ message: String, onConfirm: RxAlertCompletion = nil) {
-        onNext(.tip(message, onConfirm: onConfirm))
+    public func onNextTip(
+        _ message: String,
+        inputs: [RxAlertInput] = [],
+        onConfirm: RxAlertCompletion = nil
+    ) {
+        onNext(.tip(message, inputs: inputs, onConfirm: onConfirm))
     }
     
     public func onNextWarning(_ message: String, onConfirm: RxAlertCompletion = nil) {
