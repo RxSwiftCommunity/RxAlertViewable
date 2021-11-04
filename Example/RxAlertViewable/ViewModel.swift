@@ -87,7 +87,7 @@ class ViewModel {
         )
     }
     
-    private let textSubject = BehaviorRelay<String?>(value: nil)
+    private let textRealy = BehaviorRelay<String?>(value: nil)
     
     func showInputAlertView() {
         
@@ -99,13 +99,13 @@ class ViewModel {
                     text: "My text",
                     textAlignment: .center,
                     onTextChanged: RxAlertInput.OnTextChanged(
-                        text: textSubject,
-                        disposeBag: self.disposeBag
+                        text: textRealy,
+                        disposeBag: disposeBag
                     )
                 )
             ],
-            onConfirm: {
-                self.alert.onNextTip(self.textSubject.value ?? "")
+            onConfirm: { [weak self] in
+                self?.alert.onNextTip(self?.textRealy.value ?? "")
             }
         )
     }
